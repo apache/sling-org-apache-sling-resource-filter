@@ -98,6 +98,13 @@ public class ResourceStream {
         }, Spliterator.ORDERED | Spliterator.IMMUTABLE), false);
     }
 
+    /**
+     * Provides a stream of the child resource of the base resource. The predicate
+     * is a filter to determine which of the children are returned
+     * 
+     * @param childSelector
+     * @return
+     */
     public Stream<Resource> listChildren(Predicate<Resource> childSelector) {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resource.listChildren(),
                 Spliterator.ORDERED | Spliterator.IMMUTABLE), false).filter(childSelector);

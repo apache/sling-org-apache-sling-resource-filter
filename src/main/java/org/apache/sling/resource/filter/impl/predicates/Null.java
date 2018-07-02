@@ -14,16 +14,11 @@
 package org.apache.sling.resource.filter.impl.predicates;
 
 /**
- * 
- * @author jabail
+ * Utility class to represent a Null value while evaluating predicates
  *
  */
 public class Null extends Number implements CharSequence {
 
-    /**
-     * The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes.
-     */
     private static final long serialVersionUID = 1L;
 
     @Override

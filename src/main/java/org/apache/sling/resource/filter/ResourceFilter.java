@@ -25,6 +25,10 @@ import org.apache.sling.resource.filter.impl.FilterParser;
 import org.apache.sling.resource.filter.impl.ParseException;
 import org.apache.sling.resource.filter.impl.node.Node;
 
+/**
+ * Creates a {@link Predicate} of type {@link Resource} to identify matching Resource objects
+ *
+ */
 public class ResourceFilter implements Predicate<Resource> {
 
     private Predicate<Resource> parsedPredicate;

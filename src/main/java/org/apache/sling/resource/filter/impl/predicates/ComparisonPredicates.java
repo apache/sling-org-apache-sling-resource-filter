@@ -33,6 +33,8 @@ import org.apache.sling.api.resource.Resource;
  */
 public class ComparisonPredicates {
 
+    private static final String STATEMENT_MAY_NOT_BE_NULL = "statement may not be null";
+
     /**
      * Values are converted to Strings.
      * 
@@ -43,7 +45,7 @@ public class ComparisonPredicates {
      * @return true if right hand String is equal to left hand String
      */
     public static Predicate<Resource> is(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             CharSequence lhValue = ComparisonPredicates.getString(lhs.apply(resource));
             CharSequence rhValue = ComparisonPredicates.getString(rhs.apply(resource));
@@ -65,7 +67,7 @@ public class ComparisonPredicates {
      * @return true if right hand String is equal to left hand String
      */
     public static Predicate<Resource> isNot(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             CharSequence lhValue = ComparisonPredicates.getString(lhs.apply(resource));
             CharSequence rhValue = ComparisonPredicates.getString(rhs.apply(resource));
@@ -112,7 +114,7 @@ public class ComparisonPredicates {
      */
     @SuppressWarnings("unchecked")
     public static Predicate<Resource> gt(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             Number lhValue = ComparisonPredicates.getNumber(lhs.apply(resource));
             Number rhValue = ComparisonPredicates.getNumber(rhs.apply(resource));
@@ -141,7 +143,7 @@ public class ComparisonPredicates {
      */
     @SuppressWarnings("unchecked")
     public static Predicate<Resource> gte(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             Number lhValue = ComparisonPredicates.getNumber(lhs.apply(resource));
             Number rhValue = ComparisonPredicates.getNumber(rhs.apply(resource));
@@ -198,7 +200,7 @@ public class ComparisonPredicates {
      */
     @SuppressWarnings("unchecked")
     public static Predicate<Resource> lte(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             Number lhValue = ComparisonPredicates.getNumber(lhs.apply(resource));
             Number rhValue = ComparisonPredicates.getNumber(rhs.apply(resource));
@@ -224,7 +226,7 @@ public class ComparisonPredicates {
      * @return true if left hand values are a subset of right hand values
      */
     public static Predicate<Resource> contains(Function<Resource, Object> lhs, Function<Resource, Object> rhs) {
-        Objects.requireNonNull(rhs, "statement may not be null");
+        Objects.requireNonNull(rhs, STATEMENT_MAY_NOT_BE_NULL);
         return resource -> {
             String[] lhValues = adaptToArray(lhs.apply(resource));
             String[] rhValues = adaptToArray(rhs.apply(resource));

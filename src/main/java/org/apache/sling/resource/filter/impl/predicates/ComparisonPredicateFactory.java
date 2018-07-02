@@ -20,6 +20,9 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.impl.FilterParserConstants;
 
 public class ComparisonPredicateFactory {
+    
+    private ComparisonPredicateFactory() {
+    }
 
     public static Predicate<Resource> toPredicate(int kind, Function<Resource, Object> leftValue,
             Function<Resource, Object> rightValue) {

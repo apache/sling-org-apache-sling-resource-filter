@@ -1,4 +1,8 @@
-# Resource Stream Support
+# Resource Filter
+Consists of a utility to do a controlled traversal of a Resource sub-tree as well as a dedicated scripting language to create a boolean Predicate object that be used as part of Java Collections or with native Java Streams.
+
+
+## Resource Stream
 
 * `ResourceStream` utility to provide a `Stream<Resource>` which traverses the subtree of a resource
 * Script support for creation of a complex `Predicate<Resource>` for use with Collections and Streams
@@ -6,16 +10,15 @@
 Example of a stream using the filter script
 
 ```java
-new ResourceStream(resource)
-    .setBranchSelector("[jcr:primaryType] == 'cq:Page'")
-    .stream()
-    .filter(new ResourceFilter("[jcr:content/sling:resourceType] != 'apps/components/page/folder'"))
-    .collect(Collections.toList());
+     new ResourceStreamFilter(resource)
+        .stream("[jcr:primaryType] == 'cq:Page'")
+        .filter(new ResourceFilter("[jcr:content/sling:resourceType] != 'apps/components/page/folder'"))
+        .collect(Collections.toList());
 ```
 
 
 
-## ResourceFilter Script
+## ResourceFilter Scripting
 
 ### Operators
 
