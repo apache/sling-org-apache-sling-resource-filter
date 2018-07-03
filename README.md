@@ -1,3 +1,7 @@
+[<img src="http://sling.apache.org/res/logos/sling.png"/>](http://sling.apache.org)
+
+ [![Build Status](https://builds.apache.org/buildStatus/icon?job=sling-org-apache-sling-resource-filter-1.8)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8.svg)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8/test_results_analyzer/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
 # Resource Filter
 Consists of a utility to do a controlled traversal of a Resource sub-tree as well as a dedicated scripting language to create a boolean Predicate object that be used as part of Java Collections or with native Java Streams.
 
@@ -118,4 +122,3 @@ In a naive implementation of a tree traversal the traversal occurs across all no
   
 ### Limit memory consumption
 The instantiation of a Resource object from the underlying ResourceResolver is a non trivial consumption of memory. When the focus of a tree traversal is obtaining information from thousands of Resources, an effective method is to extract the information as part of the stream processing or utilizing the forEach method of the ResourceStream object which allows the resource to be garbage collected in an efficient manner. 
-
