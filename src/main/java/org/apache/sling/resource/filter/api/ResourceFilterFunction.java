@@ -18,9 +18,8 @@ import java.util.function.BiFunction;
 import org.apache.sling.api.resource.Resource;
 
 /**
- * A CustomFilterFunction implementation is used to translate a command in a
- * script or an Object that is a result of a custom function. Into a value that
- * is used for Comparison
+ * A ResourceFilterFunction implementation is used to translate a command in a
+ * script to a value object that will be used as part of a comparison
  * 
  */
 public interface ResourceFilterFunction extends BiFunction<Object[], Resource, Object> {
@@ -37,11 +36,5 @@ public interface ResourceFilterFunction extends BiFunction<Object[], Resource, O
      */
     Object apply(Object[] arguments, Resource resource);
 
-    /**
-     * Allows the name of the function to be defined
-     * 
-     * @return name to be used in the script
-     */
-    String getName();
 
 }

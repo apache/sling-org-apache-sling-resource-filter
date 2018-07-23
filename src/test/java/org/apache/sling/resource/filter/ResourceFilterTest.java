@@ -15,15 +15,11 @@ package org.apache.sling.resource.filter;
 
 import static org.junit.Assert.assertEquals;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilter;
-import org.apache.sling.resource.filter.ResourceStream;
 import org.apache.sling.resource.filter.impl.ParseException;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
@@ -36,7 +32,7 @@ public class ResourceFilterTest {
     public final SlingContext context = new SlingContext();
 
     private static String START_PATH = "/content/sample/en";
-    private Date midPoint;
+
 
     private static String DATE_STRING = "Thu Aug 07 2013 16:32:59 GMT+0200";
     private static String NEW_DATE = "2013-08-08T16:32:59.000+02:00";
@@ -45,7 +41,6 @@ public class ResourceFilterTest {
     @Before
     public void setUp() throws ParseException, java.text.ParseException {
         context.load().json("/data.json", "/content/sample/en");
-        midPoint = new SimpleDateFormat(DATE_FORMAT).parse(DATE_STRING);
     }
 
     @Test

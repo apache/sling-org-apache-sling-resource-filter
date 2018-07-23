@@ -48,48 +48,13 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
 
     @Override
     public Function<Resource, Object> visit(Node node) {
-
         switch (node.kind) {
         case FilterParserConstants.FUNCTION_NAME:
-            // will only get here in the case of the 'FUNCTION' switch case
-            switch (node.text) {
-            case "name":
-                return Resource::getName;
-            case "path":
-                return Resource::getPath;
-            case "date":
-                return resource -> {
-                    Object[] arguments = node.visitChildren(this).stream().map(funct -> funct.apply(resource))
-                            .toArray();
-                    return dateHandler(arguments);
-                };
-            default:
-                Optional<BiFunction<Object[], Resource, Object>> temp = context.getFunction(node.text);
-                if (temp.isPresent()) {
-                    final List<Function<Resource, Object>> children2 = node.visitChildren(this);
-                    return resource -> {
-                        Object[] arguments = children2.stream().map(funct -> funct.apply(resource)).toArray();
-                        return temp.get().apply(arguments, resource);
-                    };
-                }
-            }
-            break;
+            return functionHandler(node);
         case FilterParserConstants.NULL:
             return resource -> new Null();
         case FilterParserConstants.NUMBER:
-            Number numericValue = null;
-            String numberText = node.text;
-            try {
-                numericValue = Integer.valueOf(numberText);
-            } catch (NumberFormatException nfe1) {
-                try {
-                    numericValue = new BigDecimal(numberText);
-                } catch (NumberFormatException nfe2) {
-                    // swallow
-                }
-            }
-            final Number numericReply = numericValue;
-            return resource -> numericReply;
+            return resource -> numericHandler(node.text);
         case FilterParserConstants.OFFSETDATETIME:
             return resource -> OffsetDateTime.parse(node.text).toInstant();
         case FilterParserConstants.DATETIME:
@@ -115,7 +80,6 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
         default:
             return resource -> node.text;
         }
-        return null;
     }
 
     private ValueMap valueMapOf(Resource resource) {
@@ -142,6 +106,46 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
         } else {
             return DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString, OffsetDateTime::from).toInstant();
         }
+    }
+    
+    private Function<Resource, Object> functionHandler(Node node){
+        // will only get here in the case of the 'FUNCTION' switch case
+        switch (node.text) {
+        case "name":
+            return Resource::getName;
+        case "path":
+            return Resource::getPath;
+        case "date":
+            return resource -> {
+                Object[] arguments = node.visitChildren(this).stream().map(funct -> funct.apply(resource))
+                        .toArray();
+                return dateHandler(arguments);
+            };
+        default:
+            Optional<BiFunction<Object[], Resource, Object>> temp = context.getFunction(node.text);
+            if (temp.isPresent()) {
+                final List<Function<Resource, Object>> children2 = node.visitChildren(this);
+                return resource -> {
+                    Object[] arguments = children2.stream().map(funct -> funct.apply(resource)).toArray();
+                    return temp.get().apply(arguments, resource);
+                };
+            }
+        }
+        return null;
+    }
+    
+    private static Number numericHandler(String numberText) {
+        Number numericValue = null;
+        try {
+            numericValue = Integer.valueOf(numberText);
+        } catch (NumberFormatException nfe1) {
+            try {
+                numericValue = new BigDecimal(numberText);
+            } catch (NumberFormatException nfe2) {
+                // swallow
+            }
+        }
+        return numericValue;
     }
 
 }
