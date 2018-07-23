@@ -13,7 +13,11 @@
  */
 package org.apache.sling.resource.filter;
 
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.impl.ParseException;
@@ -25,7 +29,8 @@ public class ResourceFilterStream extends ResourceStream {
     }
 
     /**
-     * Predicate used to select child resources for traversal
+     * Creates a Stream<Resource> using the branchSelector to create the traversal
+     * predicate to select the appropriate child resources
      * 
      * @param branchSelector
      *            resourceFilter script for traversal control
@@ -34,6 +39,19 @@ public class ResourceFilterStream extends ResourceStream {
      */
     public Stream<Resource> stream(String branchSelector) throws ParseException {
         return stream(new ResourceFilter(branchSelector));
+    }
+    
+    /**
+     * Provides a stream of the child resources of the base resource. The predicate
+     * is a filter to determine which of the children are returned
+     * 
+     * @param childSelector
+     * @return
+     * @throws ParseException 
+     */
+    public Stream<Resource> listChildren(String childSelector) throws ParseException {
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resource.listChildren(),
+                Spliterator.ORDERED | Spliterator.IMMUTABLE), false).filter(new ResourceFilter(childSelector));
     }
 
 }

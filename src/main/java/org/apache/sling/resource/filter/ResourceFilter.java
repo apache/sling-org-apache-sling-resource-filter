@@ -26,7 +26,8 @@ import org.apache.sling.resource.filter.impl.ParseException;
 import org.apache.sling.resource.filter.impl.node.Node;
 
 /**
- * Creates a {@link Predicate} of type {@link Resource} to identify matching Resource objects
+ * Creates a {@link Predicate} of type {@link Resource} to identify matching
+ * Resource objects
  *
  */
 public class ResourceFilter implements Predicate<Resource> {
@@ -35,8 +36,15 @@ public class ResourceFilter implements Predicate<Resource> {
 
     private Context context;
 
-    public ResourceFilter(String filter) throws ParseException {
-        Node rootNode = new FilterParser(new ByteArrayInputStream(filter.getBytes())).parse();
+    /**
+     * Creates a {@link Predicate<Resource>} using the input String as the basis of
+     * the selection
+     * 
+     * @param matchDefinition Script used to define the matching requirements for the Predicate
+     * @throws ParseException
+     */
+    public ResourceFilter(String matchDefinition) throws ParseException {
+        Node rootNode = new FilterParser(new ByteArrayInputStream(matchDefinition.getBytes())).parse();
         this.parsedPredicate = rootNode.accept(getContext().getLogicVisitor());
     }
 

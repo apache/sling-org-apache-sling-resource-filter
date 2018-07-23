@@ -32,7 +32,7 @@ import org.apache.sling.api.resource.Resource;
  */
 public class ResourceStream {
 
-    private Resource resource;
+    protected Resource resource;
 
     public ResourceStream(Resource resource) {
         this.resource = resource;
@@ -99,7 +99,7 @@ public class ResourceStream {
     }
 
     /**
-     * Provides a stream of the child resource of the base resource. The predicate
+     * Provides a stream of the child resources of the base resource. The predicate
      * is a filter to determine which of the children are returned
      * 
      * @param childSelector
