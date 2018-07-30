@@ -15,7 +15,6 @@ package org.apache.sling.resource.filter;
 
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -24,7 +23,7 @@ import org.apache.sling.resource.filter.impl.ParseException;
 
 public class ResourceFilterStream extends ResourceStream {
 
-    protected ResourceFilterStream(Resource resource) {
+    public ResourceFilterStream(Resource resource) {
         super(resource);
     }
 
