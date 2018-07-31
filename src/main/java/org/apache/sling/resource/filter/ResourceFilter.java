@@ -40,11 +40,27 @@ public class ResourceFilter implements Predicate<Resource> {
      * Creates a {@link Predicate<Resource>} using the input String as the basis of
      * the selection
      * 
-     * @param matchDefinition Script used to define the matching requirements for the Predicate
+     * @param matchDefinition
+     *            Script used to define the matching requirements for the Predicate
      * @throws ParseException
      */
     public ResourceFilter(String matchDefinition) throws ParseException {
         Node rootNode = new FilterParser(new ByteArrayInputStream(matchDefinition.getBytes())).parse();
+        this.parsedPredicate = rootNode.accept(getContext().getLogicVisitor());
+    }
+
+    /**
+     * Creates a {@link Predicate<Resource>} using the input String as the basis of
+     * the selection
+     * 
+     * @param matchDefinition
+     *            Script used to define the matching requirements for the Predicate
+     * @param charEncoding
+     *            char encoding of the matchDefinition
+     * @throws ParseException
+     */
+    public ResourceFilter(String matchDefinition, String charEncoding) throws ParseException {
+        Node rootNode = new FilterParser(new ByteArrayInputStream(matchDefinition.getBytes()), charEncoding).parse();
         this.parsedPredicate = rootNode.accept(getContext().getLogicVisitor());
     }
 

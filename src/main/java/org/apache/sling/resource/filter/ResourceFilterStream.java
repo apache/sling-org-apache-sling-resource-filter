@@ -39,18 +39,50 @@ public class ResourceFilterStream extends ResourceStream {
     public Stream<Resource> stream(String branchSelector) throws ParseException {
         return stream(new ResourceFilter(branchSelector));
     }
-    
+
+    /**
+     * Creates a Stream<Resource> using the branchSelector to create the traversal
+     * predicate to select the appropriate child resources
+     * 
+     * @param branchSelector
+     *            resourceFilter script for traversal control
+     * @param charEncoding
+     *            char encoding of the branch selector String
+     * @return ResourceStream
+     * @throws ParseException
+     */
+    public Stream<Resource> stream(String branchSelector, String charEncoding) throws ParseException {
+        return stream(new ResourceFilter(branchSelector, charEncoding));
+    }
+
     /**
      * Provides a stream of the child resources of the base resource. The predicate
      * is a filter to determine which of the children are returned
      * 
      * @param childSelector
      * @return
-     * @throws ParseException 
+     * @throws ParseException
      */
     public Stream<Resource> listChildren(String childSelector) throws ParseException {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resource.listChildren(),
                 Spliterator.ORDERED | Spliterator.IMMUTABLE), false).filter(new ResourceFilter(childSelector));
+    }
+
+    /**
+     * Provides a stream of the child resources of the base resource. The predicate
+     * is a filter to determine which of the children are returned
+     * 
+     * @param childSelector
+     * @param charEncoding
+     *            char encoding of the branch selector String
+     * @return
+     * @throws ParseException
+     */
+    public Stream<Resource> listChildren(String childSelector, String charEncoding) throws ParseException {
+        return StreamSupport
+                .stream(Spliterators.spliteratorUnknownSize(resource.listChildren(),
+                        Spliterator.ORDERED | Spliterator.IMMUTABLE), false)
+                .filter(new ResourceFilter(childSelector, charEncoding));
     }
 
 }
