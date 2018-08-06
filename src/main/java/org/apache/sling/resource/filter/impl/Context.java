@@ -11,8 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.sling.resource.filter.api;
+package org.apache.sling.resource.filter.impl;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -95,5 +96,7 @@ public interface Context {
      * @return Optional object represented by the name
      */
     Optional<Object> getArgument(String name);
+
+    void addParams(Map<String, Object> params);
 
 }

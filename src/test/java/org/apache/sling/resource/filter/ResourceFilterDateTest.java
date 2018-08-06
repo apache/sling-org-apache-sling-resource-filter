@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilterStream;
-import org.apache.sling.resource.filter.impl.ParseException;
+import org.apache.sling.resource.filter.impl.ResourceFilterImpl;
+import org.apache.sling.resource.filter.impl.script.ParseException;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,15 +31,20 @@ public class ResourceFilterDateTest {
     @Rule
     public final SlingContext context = new SlingContext();
 
+    private Resource resource;
+    
+    ResourceFilter resourceFilter = new ResourceFilterImpl();
+
     private static String START_PATH = "/content/sample/en";
 
     @Before
     public void setUp() throws ParseException, java.text.ParseException {
         context.load().json("/data.json", "/content/sample/en");
+        resource = context.resourceResolver().getResource(START_PATH);
     }
 
     @Test
-    public void testPropLessThanDateFunction() throws ParseException {
+    public void testPropLessThanDateFunction() throws ResourceFilterException {
         String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00')";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
@@ -93,9 +98,8 @@ public class ResourceFilterDateTest {
         assertEquals(4, found.size());
     }
 
-    private List<Resource> handle(String path, String filter) throws ParseException {
-        Resource resource = context.resourceResolver().getResource(path);
-        return new ResourceFilterStream(resource).stream(r -> true).filter(new ResourceFilter(filter))
+    private List<Resource> handle(String path, String filter) throws ResourceFilterException {
+        return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
                 .collect(Collectors.toList());
     }
 }

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.sling.resource.filter.api.impl;
+package org.apache.sling.resource.filter.impl;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -31,11 +31,9 @@ import java.util.function.Function;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.resource.filter.api.Context;
-import org.apache.sling.resource.filter.api.Visitor;
-import org.apache.sling.resource.filter.impl.FilterParserConstants;
 import org.apache.sling.resource.filter.impl.node.Node;
 import org.apache.sling.resource.filter.impl.predicates.Null;
+import org.apache.sling.resource.filter.impl.script.FilterParserConstants;
 
 public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
 

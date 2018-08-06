@@ -19,7 +19,7 @@ options
 }
 
 PARSER_BEGIN(FilterParser)
-package org.apache.sling.resource.filter.impl;
+package org.apache.sling.resource.filter.impl.script;
 
 import java.util.ArrayList;
 import java.util.List;

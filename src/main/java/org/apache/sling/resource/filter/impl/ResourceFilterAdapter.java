@@ -16,33 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.sling.resource.filter;
+package org.apache.sling.resource.filter.impl;
 
-import java.util.Map;
-import java.util.function.Predicate;
-
+import org.apache.sling.api.adapter.AdapterFactory;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.resource.filter.ResourceFilter;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-public interface ResourceFilter {
 
-    public Predicate<Resource> parse(String filter) throws ResourceFilterException;
+@Component(property= {"adaptables=org.apache.sling.api.resource.Resource","adapters=org.apache.sling.resource.filter.ResourceFilterStream"})
+public class ResourceFilterAdapter implements AdapterFactory {
+    
+    @Reference
+    private volatile ResourceFilter filter;
 
-    public Predicate<Resource> parse(String filter, String charEncoding) throws ResourceFilterException;
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T getAdapter(Object adaptable, Class<T> type) {
+        if (adaptable instanceof Resource) {
+            return (T) new ResourceFilterStreamImpl((Resource)adaptable, filter);
+        }
+        return null;
+    }
 
-    /**
-     * Add a series of key - value pairs that can then be evaluated as part of the
-     * ScriptFilter
-     * 
-     * @param params
-     * @return
-     */
-    public abstract ResourceFilter addParams(Map<String, Object> params);
-
-    /**
-     * Add a key - value pair that can then be evaluated as part of the Script
-     * 
-     * @param params
-     * @return
-     */
-    public abstract ResourceFilter addParam(String key, Object value);
 }

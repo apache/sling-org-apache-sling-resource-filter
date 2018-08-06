@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilterStream;
-import org.apache.sling.resource.filter.impl.ParseException;
+import org.apache.sling.resource.filter.impl.ResourceFilterImpl;
+import org.apache.sling.resource.filter.impl.script.ParseException;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,13 +33,18 @@ public class ResourceFilterLogicTest {
 
     private static String START_PATH = "/content/sample/en";
 
+    private Resource resource;
+    
+    ResourceFilter resourceFilter = new ResourceFilterImpl();
+
     @Before
     public void setUp() throws ParseException, java.text.ParseException {
-        context.load().json("/data.json", START_PATH);
+        context.load().json("/data.json", "/content/sample/en");
+        resource = context.resourceResolver().getResource(START_PATH);
     }
 
     @Test
-    public void testDateAndProperty() throws ParseException {
+    public void testDateAndProperty() throws ResourceFilterException {
         String query = "[jcr:content/created] > '2013-08-08T16:32:59' and [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
@@ -57,9 +62,8 @@ public class ResourceFilterLogicTest {
         assertEquals(4, found.size());
     }
 
-    private List<Resource> handle(String path, String filter) throws ParseException {
-        Resource resource = context.resourceResolver().getResource(path);
-        return new ResourceFilterStream(resource).stream(r -> true).filter(new ResourceFilter(filter))
+    private List<Resource> handle(String path, String filter) throws  ResourceFilterException {
+        return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
                 .collect(Collectors.toList());
     }
 }

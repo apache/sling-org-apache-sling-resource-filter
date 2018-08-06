@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.sling.resource.filter.api.Visitor;
+import org.apache.sling.resource.filter.impl.Visitor;
 
 /**
  * 
@@ -78,6 +78,26 @@ public class Node {
         this.text = operator;
         this.leftNode = leftValue;
         this.rightNode = rightValue;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Node getLeftNode() {
+        return leftNode;
+    }
+
+    public Node getRightNode() {
+        return rightNode;
+    }
+
+    public List<Node> getChildren() {
+        return children;
+    }
+
+    public int getKind() {
+        return kind;
     }
 
     public <R> R accept(Visitor<R> visitor) {

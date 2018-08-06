@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.sling.resource.filter.api.impl;
+package org.apache.sling.resource.filter.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +21,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.api.Context;
-import org.apache.sling.resource.filter.api.Visitor;
 
 public class DefaultContext implements Context {
 
@@ -82,6 +80,11 @@ public class DefaultContext implements Context {
     @Override
     public Optional<Object> getArgument(String text) {
         return Optional.ofNullable(arguments.get(text));
+    }
+
+    @Override
+    public void addParams(Map<String, Object> params) {
+        arguments.putAll(params);
     }
 
 }

@@ -18,31 +18,8 @@
  */
 package org.apache.sling.resource.filter;
 
-import java.util.Map;
-import java.util.function.Predicate;
+public interface ResourceFilterProvider {
+    
+    public ResourceFilter getResourceFilter();
 
-import org.apache.sling.api.resource.Resource;
-
-public interface ResourceFilter {
-
-    public Predicate<Resource> parse(String filter) throws ResourceFilterException;
-
-    public Predicate<Resource> parse(String filter, String charEncoding) throws ResourceFilterException;
-
-    /**
-     * Add a series of key - value pairs that can then be evaluated as part of the
-     * ScriptFilter
-     * 
-     * @param params
-     * @return
-     */
-    public abstract ResourceFilter addParams(Map<String, Object> params);
-
-    /**
-     * Add a key - value pair that can then be evaluated as part of the Script
-     * 
-     * @param params
-     * @return
-     */
-    public abstract ResourceFilter addParam(String key, Object value);
 }

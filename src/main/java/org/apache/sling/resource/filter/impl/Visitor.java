@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.sling.resource.filter.api;
+package org.apache.sling.resource.filter.impl;
 
 import org.apache.sling.resource.filter.impl.node.Node;
 

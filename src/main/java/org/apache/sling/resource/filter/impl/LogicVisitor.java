@@ -11,17 +11,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.sling.resource.filter.api.impl;
+package org.apache.sling.resource.filter.impl;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.api.Context;
-import org.apache.sling.resource.filter.api.Visitor;
-import org.apache.sling.resource.filter.impl.FilterParserConstants;
 import org.apache.sling.resource.filter.impl.node.Node;
 import org.apache.sling.resource.filter.impl.predicates.ComparisonPredicateFactory;
+import org.apache.sling.resource.filter.impl.script.FilterParserConstants;
 
 /**
  * Visitor implementation that handles the high level handling of logic between

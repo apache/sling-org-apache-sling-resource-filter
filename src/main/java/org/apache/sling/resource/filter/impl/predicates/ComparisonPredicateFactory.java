@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.impl.FilterParserConstants;
+import org.apache.sling.resource.filter.impl.script.FilterParserConstants;
 
 public class ComparisonPredicateFactory {
     
