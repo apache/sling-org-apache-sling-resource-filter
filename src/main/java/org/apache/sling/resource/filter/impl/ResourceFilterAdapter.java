@@ -20,7 +20,8 @@ package org.apache.sling.resource.filter.impl;
 
 import org.apache.sling.api.adapter.AdapterFactory;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilter;
+import org.apache.sling.resource.filter.ResourceFilterProvider;
+import org.apache.sling.resource.filter.ResourceFilterStream;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -29,13 +30,13 @@ import org.osgi.service.component.annotations.Reference;
 public class ResourceFilterAdapter implements AdapterFactory {
     
     @Reference
-    private volatile ResourceFilter filter;
+    private volatile ResourceFilterProvider filter;
 
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getAdapter(Object adaptable, Class<T> type) {
         if (adaptable instanceof Resource) {
-            return (T) new ResourceFilterStreamImpl((Resource)adaptable, filter);
+            return (T) new ResourceFilterStream((Resource)adaptable, filter.getResourceFilter());
         }
         return null;
     }

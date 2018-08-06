@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.impl.ResourceFilterImpl;
 import org.apache.sling.resource.filter.impl.ResourceFilterProviderImpl;
-import org.apache.sling.resource.filter.impl.ResourceFilterStreamImpl;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
 import org.junit.Rule;
@@ -46,7 +45,7 @@ public class ResourceFilterArgTest {
         context.load().json("/data.json", "/content/sample/en");
         context.registerService(new ResourceFilterProviderImpl());
         resource = context.resourceResolver().getResource(START_PATH);
-        context.registerAdapter(Resource.class, ResourceFilterStream.class, new ResourceFilterStreamImpl(resource,new ResourceFilterImpl()));
+        context.registerAdapter(Resource.class, ResourceFilterStream.class, new ResourceFilterStream(resource,new ResourceFilterImpl()));
     }
 
     @Test

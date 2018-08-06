@@ -31,7 +31,7 @@ public interface ResourceFilter {
 
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
-     * ScriptFilter
+     * filter creation
      * 
      * @param params
      * @return
@@ -39,7 +39,8 @@ public interface ResourceFilter {
     public abstract ResourceFilter addParams(Map<String, Object> params);
 
     /**
-     * Add a key - value pair that can then be evaluated as part of the Script
+     * Add a key - value pair that can then be evaluated as part of the filter
+     * creation
      * 
      * @param params
      * @return

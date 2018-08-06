@@ -24,9 +24,6 @@ public class ResourceFilterException extends Exception {
         super(cause);
     }
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 5893818236312416308L;
 
 
