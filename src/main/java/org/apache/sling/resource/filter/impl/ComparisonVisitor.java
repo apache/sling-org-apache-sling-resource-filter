@@ -24,6 +24,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -73,7 +74,11 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
         case FilterParserConstants.DYNAMIC_ARG:
             return resource -> {
                 String argument = node.text;
-                return context.getArgument(argument).orElse(new Null());
+                Optional<Object> arg = context.getArgument(argument);
+                if (!arg.isPresent()) {
+                    throw new NoSuchElementException(String.format("No value present for '%s'",argument));
+                }
+                return arg.get();
             };
         default:
             return resource -> node.text;

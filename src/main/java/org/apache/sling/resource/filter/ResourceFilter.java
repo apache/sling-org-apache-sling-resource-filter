@@ -25,8 +25,23 @@ import org.apache.sling.api.resource.Resource;
 
 public interface ResourceFilter {
 
+    /**
+     * Creates a Predicate<Resource> based on the scripted matching
+     * 
+     * @param filter
+     * @return
+     * @throws ResourceFilterException
+     */
     public Predicate<Resource> parse(String filter) throws ResourceFilterException;
 
+    /**
+     * Creates a Predicate<Resource> based on the scripted matching
+     * 
+     * @param filter
+     * @param charEncoding
+     * @return
+     * @throws ResourceFilterException
+     */
     public Predicate<Resource> parse(String filter, String charEncoding) throws ResourceFilterException;
 
     /**
@@ -34,7 +49,7 @@ public interface ResourceFilter {
      * filter creation
      * 
      * @param params
-     * @return
+     * @return this
      */
     public abstract ResourceFilter addParams(Map<String, Object> params);
 
@@ -43,7 +58,7 @@ public interface ResourceFilter {
      * creation
      * 
      * @param params
-     * @return
+     * @return this
      */
     public abstract ResourceFilter addParam(String key, Object value);
 }

@@ -19,19 +19,25 @@ import java.util.stream.Stream;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.ResourceFilterStream;
-import org.apache.sling.resource.filter.impl.script.ParseException;
+
 
 /**
  * Creates a {@link Predicate} of type {@link Resource} to identify matching
  * Resource objects
  *
  */
-public class ResourceFilterStream extends ResourceStream {
+public class ResourceFilterStream {
+
+    private ResourceStream resources;
 
     private ResourceFilter resourceFilter;
 
+    private Predicate<Resource> branchSelector = resource -> true;
+
+    private Predicate<Resource> childSelector = resource -> true;
+
     public ResourceFilterStream(Resource resource, ResourceFilter filter) {
-        super(resource);
+        resources = new ResourceStream(resource);
         this.resourceFilter = filter;
     }
 
@@ -44,8 +50,9 @@ public class ResourceFilterStream extends ResourceStream {
      * @return ResourceStream
      * @throws ParseException
      */
-    public Stream<Resource> stream(String branchSelector) throws ResourceFilterException {
-        return stream(resourceFilter.parse(branchSelector));
+    public ResourceFilterStream setBranchSelector(String branchSelector) throws ResourceFilterException {
+        this.branchSelector = resourceFilter.parse(branchSelector);
+        return this;
     }
 
     /**
@@ -59,35 +66,9 @@ public class ResourceFilterStream extends ResourceStream {
      * @return ResourceStream
      * @throws ParseException
      */
-    public Stream<Resource> stream(String branchSelector, String charEncoding) throws ResourceFilterException {
-        return stream(resourceFilter.parse(branchSelector, charEncoding));
-    }
-
-    /**
-     * Provides a stream of the child resources filtered by the child selector
-     * 
-     * @param childSelector
-     * @return
-     * @throws ResourceFilterException
-     * @throws ParseException
-     */
-    public Stream<Resource> listChildren(String childSelector) throws ResourceFilterException {
-        return listChildren(resourceFilter.parse(childSelector));
-    }
-
-    /**
-     * Provides a stream of the child resources filtered by the child selector
-     * 
-     * @param childSelector
-     *            text based definition of the Predicate to use
-     * @param charEncoding
-     *            char encoding of the branch selector String
-     * @return
-     * @throws ResourceFilterException
-     * @throws ParseException
-     */
-    public Stream<Resource> listChildren(String childSelector, String charEncoding) throws ResourceFilterException {
-        return listChildren(resourceFilter.parse(childSelector, charEncoding));
+    public ResourceFilterStream setChildSelector(String childSelector) throws ResourceFilterException {
+        this.childSelector = resourceFilter.parse(childSelector);
+        return this;
     }
 
     /**
@@ -111,5 +92,9 @@ public class ResourceFilterStream extends ResourceStream {
     public ResourceFilterStream addParams(Map<String, Object> params) {
         resourceFilter.addParams(params);
         return this;
+    }
+
+    public Stream<Resource> stream() {
+        return resources.stream(branchSelector).filter(childSelector);
     }
 }

@@ -53,8 +53,8 @@ public class ResourceFilterArgTest {
         Map<String,Object> params = new HashMap<>();
         params.put("date", "2013-08-08T16:32:59");
         params.put("lang", "Mongolian");
-        Predicate<Resource> filter = resourceFilter.addParams(params).parse("[jcr:content/jcr:title] == $lang");
-        List<Resource> found = handle(new ResourceStream(resource), filter);
+        ResourceFilterStream rfs = resource.adaptTo(ResourceFilterStream.class);
+        List<Resource> found = rfs.addParams(params).setChildSelector("[jcr:content/jcr:title] == $lang").stream().collect(Collectors.toList());
         assertEquals(1, found.size());
     }
 
@@ -63,9 +63,9 @@ public class ResourceFilterArgTest {
         Map<String,Object> params = new HashMap<>();
         params.put("date", "2013-08-08T16:32:59");
         params.put("lang", "Mongolian");
-        Predicate<Resource> filter = resourceFilter.addParams(params).parse("[jcr:content/created] > $date and [jcr:content/jcr:title] == $lang");
-        List<Resource> found = handle(new ResourceStream(resource), filter);
-        assertEquals(1, found.size());
+        ResourceFilterStream rfs = resource.adaptTo(ResourceFilterStream.class);
+        long size = rfs.addParams(params).setChildSelector("[jcr:content/created] > $date and [jcr:content/jcr:title] == $lang").stream().count();
+        assertEquals(1, size);
     }
 
     @Test
