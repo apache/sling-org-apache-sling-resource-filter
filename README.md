@@ -3,20 +3,23 @@
  [![Build Status](https://builds.apache.org/buildStatus/icon?job=sling-org-apache-sling-resource-filter-1.8)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8.svg)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8/test_results_analyzer/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # Resource Filter
-Consists of a utility to do a controlled traversal of a Resource sub-tree as well as a dedicated scripting language to create a boolean Predicate object that be used as part of Java Collections or with native Java Streams.
+`ResourceFilter` provides a simple matching language that allows you to define a `Predicate<Resource>` for use with the Collections and Streams api in Java
 
 
 ## Resource Stream
+`ResourceStream` is a general utility to provide a `Stream<Resource>` which traverses a resource and it's subtree. The implementation takes a `Predicate<Resource>` object as part of the stream creation to define a branch selector that controls which children of a resource are followed
 
-* `ResourceStream` utility to provide a `Stream<Resource>` which traverses the subtree of a resource
-* Script support for creation of a complex `Predicate<Resource>` for use with Collections and Streams
 
-Example of a stream using the filter script
+## Resource Stream Filter
+`ResourceStreamFilter` combines the `ResourceStream` functionality with the `ResourceFilter` to provide an ability to define a `Stream<Resource>` that follows specific child pages and looks for specific Resources by using a ResourceFilter script. 
 
 ```java
-     new ResourceStreamFilter(resource)
-        .stream("[jcr:primaryType] == 'cq:Page'")
-        .filter(new ResourceFilter("[jcr:content/sling:resourceType] != 'apps/components/page/folder'"))
+     ResourceStreamFilter rfs = resource.adaptTo(ResourceStreamFilter.class);
+     
+     rfs
+        .setBranchSelector("[jcr:primaryType] == 'cq:Page'")
+        .setChildSelector("[jcr:content/sling:resourceType] != 'apps/components/page/folder'")
+        .stream()
         .collect(Collections.toList());
 ```
 
@@ -106,11 +109,11 @@ OOTB Functions are:
 | date  | 0 - 2     | Instant | First argument is string representation of the date, second argument is a standard Java DateFormat representation of the value. No argument returns the current time. |
 | path  | none		| String  | path of the tested resource        |
 
-### Arguments
-The ResourceFilter can have key value pairs added so that the values may be used as part of the script resolution. Arguments are accessed by using the dollar sign '$'
+### Parameters
+The ResourceFilter and ResourceFilteStream can have key value pairs added so that the values may be used as part of the script resolution. Parameters are accessed by using the dollar sign '$'
 
 ```java
-new ResourceFilter("[jcr:content/sling:resourceType] != $type").addArgument("type","apps/components/page/folder");
+rfs.setBranchSelector("[jcr:content/sling:resourceType] != $type").addParam("type","apps/components/page/folder");
 ```
 
 
