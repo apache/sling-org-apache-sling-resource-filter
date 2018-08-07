@@ -18,6 +18,12 @@
  */
 package org.apache.sling.resource.filter;
 
+/**
+ * Used to wrap internally generated Parser exceptions when a malformed scipt is
+ * provided
+ * 
+ *
+ */
 public class ResourceFilterException extends Exception {
 
     public ResourceFilterException(Throwable cause) {
@@ -25,6 +31,5 @@ public class ResourceFilterException extends Exception {
     }
 
     private static final long serialVersionUID = 5893818236312416308L;
-
 
 }

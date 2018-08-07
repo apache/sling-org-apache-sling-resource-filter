@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.ResourceFilterStream;
 
-
 /**
  * Creates a {@link Predicate} of type {@link Resource} to identify matching
  * Resource objects
@@ -42,13 +41,13 @@ public class ResourceFilterStream {
     }
 
     /**
-     * Creates a Stream<Resource> using the branchSelector to create the traversal
-     * predicate to select the appropriate child resources
+     * Adds a branchSelector to define which child resource are acceptable to travel
+     * down as part of the Resource traversal
      * 
      * @param branchSelector
      *            resourceFilter script for traversal control
-     * @return ResourceStream
-     * @throws ParseException
+     * @return ResourceStreamFilter
+     * @throws ResourceFilterException
      */
     public ResourceFilterStream setBranchSelector(String branchSelector) throws ResourceFilterException {
         this.branchSelector = resourceFilter.parse(branchSelector);
@@ -56,15 +55,13 @@ public class ResourceFilterStream {
     }
 
     /**
-     * Creates a Stream<Resource> using the branchSelector to create the traversal
-     * predicate to select the appropriate child resources
+     * Adds a childSelector to define which child resources should be part of the
+     * stream
      * 
-     * @param branchSelector
-     *            resourceFilter script for traversal control
-     * @param charEncoding
-     *            char encoding of the branch selector String
-     * @return ResourceStream
-     * @throws ParseException
+     * @param childSelector
+     *            resourceFilter script to identify child resources to return
+     * @return ResourceStreamFilter
+     * @throws ResourceFilterException
      */
     public ResourceFilterStream setChildSelector(String childSelector) throws ResourceFilterException {
         this.childSelector = resourceFilter.parse(childSelector);
@@ -94,6 +91,12 @@ public class ResourceFilterStream {
         return this;
     }
 
+    /**
+     * Stream<Resource> which uses the branchSelector as the basis of the traversal
+     * and then filters the resources based on the childSelector that was provided
+     * 
+     * @return pre filterd Stream<Resource>
+     */
     public Stream<Resource> stream() {
         return resources.stream(branchSelector).filter(childSelector);
     }

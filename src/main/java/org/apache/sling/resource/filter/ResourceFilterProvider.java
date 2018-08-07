@@ -20,6 +20,11 @@ package org.apache.sling.resource.filter;
 
 public interface ResourceFilterProvider {
     
+    /**
+     * Generates a unique ResourceFilter per request
+     * 
+     * @return
+     */
     public ResourceFilter getResourceFilter();
 
 }
