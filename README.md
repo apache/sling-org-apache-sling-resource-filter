@@ -29,28 +29,30 @@
 
 ### Operators
 
-| Name       | Comparison Type | Description                                |
-| ---------  | --------------- | --------------------------------           |
-| and        | NA              | Logical AND                                |
-| &&         | NA              | Logical AND                                |
-| or         | NA              | Logical OR                                 |
-|&#124;&#124;| NA              | Logical OR                                 |
-| ==         | String          | Equal operator for Strings                 |
-| <          | Number         | Less than operator for Numbers             |
-| <=         | Number         | Less than or equal operator for Numbers    |
-| >          | Number         | Greater than operator for Numbers          |
-| >=         | Number         | Greater than or equal operator for Numbers |
-| !=         | String          | Is not equal to for Strings                |
-| less than  | Number         | less than operator for Numbers             |
-| greater than| Number        | greater than operator for Numbers          |
-| is          | String         | Equal operator for Strings                 |
-| is not      | String         | Is not equal operator for Strings          |
-| like        | String - Regex  | Regex match against String                |
-| like not    | String - Regex  | Regex match against String                |
-| contains         | String[] &#124; String[] | String[] contains all of items |
-| contains not     | String[] | String[] does not contain all of the items |
-| contains any     | String[] | String[] contains at least one of items |
-| contains not any | String[] | String[] does not contain any of the items |
+| Name        | Comparison Type | Description                                |
+| ---------        | --------------- | --------------------------------           |
+| and              | NA              | Logical AND                                |
+| &&               | NA              | Logical AND                                |
+| or               | NA              | Logical OR                                 |
+|&#124;&#124;      | NA              | Logical OR                                 |
+| ==               | String          | Equal operator for Strings                 |
+| <                | Number          | Less than operator for Numbers             |
+| <=               | Number          | Less than or equal operator for Numbers    |
+| >                | Number          | Greater than operator for Numbers          |
+| >=               | Number          | Greater than or equal operator for Numbers |
+| !=               | String          | Is not equal to for Strings                |
+| ~=               | String - Regex  | Regex match against String                 |
+| less than        | Number          | less than operator for Numbers             |
+| greater than     | Number          | greater than operator for Numbers          |
+| is               | String          | Equal operator for Strings                 |
+| is not           | String          | Is not equal operator for Strings          |
+| like             | String - Regex  | Regex match against String                 |
+| is like          | String - Regex  | Regex match against String                 |
+| not like         | String - Regex  | Regex does not match String                |
+| contains         | String[]        | String[] contains all of items             |
+| contains not     | String[]        | String[] does not contain all of the items |
+| contains any     | String[]        | String[] contains at least one of items    |
+| contains not any | String[]        | String[] does not contain any of the items |
 ### Logical Operators
 The 'and' and 'or' operators are logical operators that string together conditions. 'And' operators take precedence. 'Or' operators evaluate from left to right
 

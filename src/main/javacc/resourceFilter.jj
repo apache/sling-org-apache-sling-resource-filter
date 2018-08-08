@@ -96,13 +96,13 @@ TOKEN :
 | < GREATER_THAN_OR_EQUAL : ">=" >
 | < LESS_THAN : "<" | "less than" >
 | < LESS_THAN_OR_EQUAL : "<=" >
-| < LIKE : "~=" | "like" >
-| < LIKE_NOT : "like not" | "not like" >
+| < LIKE : "~=" | "like" | "is like" >
+| < LIKE_NOT : "not like" >
 | < CONTAINS : "contains" >
 | < CONTAINS_NOT : "contains not" >
 | < CONTAINS_ANY : "contains any" >
 | < CONTAINS_NOT_ANY : "contains not any" >
-| < IN : "in" >
+| < IN : "is in" | "in" >
 | < NOT_IN : "not in" >
 | < DYNAMIC_ARG : "$" >
 | < FUNCTION_NAME : (~[ "\"", "'", "$", "(", ")", ",", "=", "<", ">", " ", "[", "]","+","-",".","0"-"9" ])+ >

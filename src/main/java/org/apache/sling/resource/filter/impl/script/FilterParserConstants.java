@@ -142,7 +142,7 @@ public interface FilterParserConstants {
     "\"contains not\"",
     "\"contains any\"",
     "\"contains not any\"",
-    "\"in\"",
+    "<IN>",
     "\"not in\"",
     "\"$\"",
     "<FUNCTION_NAME>",

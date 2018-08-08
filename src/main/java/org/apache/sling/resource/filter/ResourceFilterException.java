@@ -19,8 +19,8 @@
 package org.apache.sling.resource.filter;
 
 /**
- * Used to wrap internally generated Parser exceptions when a malformed scipt is
- * provided
+ * Used to wrap internally generated Parser exceptions when a malformed script
+ * is provided
  * 
  *
  */
