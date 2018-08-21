@@ -20,23 +20,25 @@ package org.apache.sling.resource.filter.impl;
 
 import org.apache.sling.api.adapter.AdapterFactory;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilterProvider;
+import org.apache.sling.resource.filter.ResourceFilter;
 import org.apache.sling.resource.filter.ResourceFilterStream;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 
 @Component(property= {"adaptables=org.apache.sling.api.resource.Resource","adapters=org.apache.sling.resource.filter.ResourceFilterStream"})
 public class ResourceFilterAdapter implements AdapterFactory {
-    
-    @Reference
-    private volatile ResourceFilterProvider filter;
 
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getAdapter(Object adaptable, Class<T> type) {
         if (adaptable instanceof Resource) {
-            return (T) new ResourceFilterStream((Resource)adaptable, filter.getResourceFilter());
+            ResourceFilter filter = new ResourceFilterImpl();
+            if (type == ResourceFilterStream.class) {
+                return (T) new ResourceFilterStream((Resource)adaptable, filter);
+            }
+            if (type == ResourceFilter.class) {
+                return (T) filter;
+            }
         }
         return null;
     }

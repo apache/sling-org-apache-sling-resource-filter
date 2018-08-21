@@ -3,15 +3,23 @@
  [![Build Status](https://builds.apache.org/buildStatus/icon?job=sling-org-apache-sling-resource-filter-1.8)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8.svg)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8/test_results_analyzer/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # Resource Filter
-`ResourceFilter` provides a simple matching language that allows you to define a `Predicate<Resource>` for use with the Collections and Streams api in Java
+`ResourceFilter` provides a simple matching language that allows you to define a `Predicate<Resource>` for use with the Collections and Streams api in Java as as the ability to add parameters to the underlying context that the Script will pick up. The ResourceFilter can be created by adapting a `Resource` object. 
 
+```java
+ResourceFilter rf = resource.adaptTo(ResourceFilter.class);
+Predicate<Resource> predicate = rf.parse("[jcr:content/created] < 2013-08-08T16:32");
+resourceCollection.stream().filter(predicate).forEach(
+    resource -> System.out.println(resource.getPath())
+);
+
+```
 
 ## Resource Stream
 `ResourceStream` is a general utility to provide a `Stream<Resource>` which traverses a resource and it's subtree. The implementation takes a `Predicate<Resource>` object as part of the stream creation to define a branch selector that controls which children of a resource are followed
 
 
 ## Resource Stream Filter
-`ResourceStreamFilter` combines the `ResourceStream` functionality with the `ResourceFilter` to provide an ability to define a `Stream<Resource>` that follows specific child pages and looks for specific Resources by using a ResourceFilter script. 
+`ResourceStreamFilter` combines the `ResourceStream` functionality with the `ResourceFilter` to provide an ability to define a `Stream<Resource>` that follows specific child pages and looks for specific Resources by using a ResourceFilter script. The ResourceStreamFilter is access by adaption.
 
 ```java
      ResourceStreamFilter rfs = resource.adaptTo(ResourceStreamFilter.class);

@@ -137,7 +137,7 @@ public interface FilterParserConstants {
     "<LESS_THAN>",
     "\"<=\"",
     "<LIKE>",
-    "<LIKE_NOT>",
+    "\"not like\"",
     "\"contains\"",
     "\"contains not\"",
     "\"contains any\"",
