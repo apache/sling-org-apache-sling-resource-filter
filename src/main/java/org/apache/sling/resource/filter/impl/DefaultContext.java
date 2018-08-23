@@ -45,7 +45,7 @@ public class DefaultContext implements Context {
     }
 
     @Override
-    public Context addArgument(String name, Object object) {
+    public Context addParameter(String name, Object object) {
         parameters.put(name, object);
         return this;
     }

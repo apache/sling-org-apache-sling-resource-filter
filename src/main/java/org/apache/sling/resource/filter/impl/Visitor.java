@@ -13,8 +13,6 @@
  */
 package org.apache.sling.resource.filter.impl;
 
-import java.text.ParseException;
-
 import org.apache.sling.resource.filter.impl.node.Node;
 
 /**

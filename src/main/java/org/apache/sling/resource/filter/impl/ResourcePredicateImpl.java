@@ -92,7 +92,7 @@ public class ResourcePredicateImpl implements ResourcePredicates {
 
         @Override
         public ResourcePredicateBuilder withParameter(String key, Object value) {
-            context.addArgument(key, value);
+            context.addParameter(key, value);
             return this;
         }
 

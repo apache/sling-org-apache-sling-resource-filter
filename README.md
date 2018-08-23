@@ -23,7 +23,7 @@ resourceCollection.stream().filter(predicate).forEach(
 `ResourceFilterStream` combines the `ResourceStream` functionality with the `ResourcePredicates` service to provide an ability to define a `Stream<Resource>` that follows specific child pages and looks for specific Resources as defined by the resources filter script. The ResourceStreamFilter is access by adaption.
 
 ```java
-     ResourceStreamFilter rfs = resource.adaptTo(ResourceStreamFilter.class);
+     ResourceFilterStream rfs = resource.adaptTo(ResourceFilterStream.class);
      
      rfs
         .setBranchSelector("[jcr:primaryType] == 'cq:Page'")

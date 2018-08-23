@@ -44,14 +44,6 @@ public interface Context {
      */
     Context removeFunction(String name);
 
-    /**
-     * Allows an object to be represented in the script for evaluation.
-     * 
-     * @param name of the argument
-     * @param object value that is represented
-     * @return this Context
-     */
-    Context addArgument(String name, Object object);
 
     /**
      * Retrieve the currently defined Logic Visitor 
@@ -97,11 +89,24 @@ public interface Context {
      */
     Optional<Object> getParameter(String name);
 
+    /**
+     * Allows an object to be represented in the script for evaluation.
+     * 
+     * @param name of the argument
+     * @param object value that is represented
+     * @return this Context
+     */
+    Context addParameter(String name, Object object);
     
+    /**
+     * Adds the provided Map to the underlying parameter map.
+     * 
+     * @param params
+     */
     void addParameters(Map<String, Object> params);
 
     /**
-     * Allows an object to be represented in the script for evaluation.
+     * Replaces the underlying parameter Map with the one provided
      * 
      * @param name of the argument
      * @param object value that is represented
