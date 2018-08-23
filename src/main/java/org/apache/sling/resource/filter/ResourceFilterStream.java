@@ -13,6 +13,7 @@
  */
 package org.apache.sling.resource.filter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -29,15 +30,17 @@ public class ResourceFilterStream {
 
     private ResourceStream resources;
 
-    private ResourceFilter resourceFilter;
+    private ResourcePredicates resourcePredicate;
 
     private Predicate<Resource> branchSelector = resource -> true;
 
     private Predicate<Resource> childSelector = resource -> true;
+    
+    private Map<String,Object> parameters = new HashMap<>();
 
-    public ResourceFilterStream(Resource resource, ResourceFilter filter) {
-        resources = new ResourceStream(resource);
-        this.resourceFilter = filter;
+    public ResourceFilterStream(Resource resource, ResourcePredicates filter) {
+        this.resources = new ResourceStream(resource);
+        this.resourcePredicate = filter;
     }
 
     /**
@@ -45,12 +48,12 @@ public class ResourceFilterStream {
      * down as part of the Resource traversal
      * 
      * @param branchSelector
-     *            resourceFilter script for traversal control
+     *            resourcePredicate script for traversal control
      * @return ResourceStreamFilter
      * @throws ResourceFilterException
      */
     public ResourceFilterStream setBranchSelector(String branchSelector) {
-        this.branchSelector = resourceFilter.parse(branchSelector);
+        this.branchSelector = resourcePredicate.usingParameterMap(parameters).parse(branchSelector);
         return this;
     }
 
@@ -59,12 +62,12 @@ public class ResourceFilterStream {
      * stream
      * 
      * @param childSelector
-     *            resourceFilter script to identify child resources to return
+     *            resourcePredicate script to identify child resources to return
      * @return ResourceStreamFilter
      * @throws ResourceFilterException
      */
     public ResourceFilterStream setChildSelector(String childSelector) {
-        this.childSelector = resourceFilter.parse(childSelector);
+        this.childSelector = resourcePredicate.usingParameterMap(parameters).parse(childSelector);
         return this;
     }
 
@@ -75,7 +78,7 @@ public class ResourceFilterStream {
      * @return
      */
     public ResourceFilterStream addParam(String key, Object value) {
-        resourceFilter.addParam(key, value);
+        parameters.put(key, value);
         return this;
     }
 
@@ -87,7 +90,7 @@ public class ResourceFilterStream {
      * @return
      */
     public ResourceFilterStream addParams(Map<String, Object> params) {
-        resourceFilter.addParams(params);
+        parameters.putAll(params);
         return this;
     }
 

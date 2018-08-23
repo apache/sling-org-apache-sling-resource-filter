@@ -74,7 +74,7 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
         case FilterParserConstants.DYNAMIC_ARG:
             return resource -> {
                 String argument = node.text;
-                Optional<Object> arg = context.getArgument(argument);
+                Optional<Object> arg = context.getParameter(argument);
                 if (!arg.isPresent()) {
                     throw new NoSuchElementException(String.format("No value present for '%s'",argument));
                 }

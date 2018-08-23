@@ -20,7 +20,7 @@ package org.apache.sling.resource.filter.impl;
 
 import org.apache.sling.api.adapter.AdapterFactory;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilter;
+import org.apache.sling.resource.filter.ResourcePredicates;
 import org.apache.sling.resource.filter.ResourceFilterStream;
 import org.osgi.service.component.annotations.Component;
 
@@ -32,11 +32,11 @@ public class ResourceFilterAdapter implements AdapterFactory {
     @Override
     public <T> T getAdapter(Object adaptable, Class<T> type) {
         if (adaptable instanceof Resource) {
-            ResourceFilter filter = new ResourceFilterImpl();
+            ResourcePredicates filter = new ResourcePredicateImpl();
             if (type == ResourceFilterStream.class) {
                 return (T) new ResourceFilterStream((Resource)adaptable, filter);
             }
-            if (type == ResourceFilter.class) {
+            if (type == ResourcePredicates.class) {
                 return (T) filter;
             }
         }

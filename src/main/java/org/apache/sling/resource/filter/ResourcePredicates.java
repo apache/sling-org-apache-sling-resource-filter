@@ -23,43 +23,65 @@ import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
 
-public interface ResourceFilter {
+/**
+ * 
+ *
+ */
+public interface ResourcePredicates {
 
     /**
-     * Creates a Predicate<Resource> based on the script
+     * Creates a Predicate<Resource> based on the provided script
      * 
      * @param filter
      * @return
      * @throws ResourceFilterException
      */
-    public Predicate<Resource> parse(String filter);
+    Predicate<Resource> parse(String filter);
 
     /**
-     * Creates a Predicate<Resource> based on the script
+     * Creates a Predicate<Resource> based on the provided script
      * 
      * @param filter
      * @param charEncoding
      * @return
      * @throws ResourceFilterException
      */
-    public Predicate<Resource> parse(String filter, String charEncoding);
+    Predicate<Resource> parse(String filter, String charEncoding);
 
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
-     * filter creation
+     * Predicate<Resource> creation
      * 
-     * @param params Map of Key - Value pairs
-     * @return this
+     * @param params
+     *            Map of Key - Value pairs
+     * @return ResourcePredicateBuilder
      */
-    public abstract ResourceFilter addParams(Map<String, Object> params);
+    ResourcePredicateBuilder withParameters(Map<String, Object> params);
 
     /**
-     * Adds a key - value pair that can then be evaluated as part of the filter
-     * creation
+     * Adds a key - value pair that can then be evaluated as part of the
+     * Predicate<Resource> creation
      * 
      * @param key
      * @param value
-     * @return this
+     * @return ResourcePredicateBuilder
      */
-    public abstract ResourceFilter addParam(String key, Object value);
+    ResourcePredicateBuilder withParameter(String key, Object value);
+
+    /**
+     * Replaces the existing parameter map with the supplied Map<String,Object>
+     * object, all prior provided parameters will be replaced
+     * 
+     * @return ResourcePredicateBuilder
+     */
+    ResourcePredicateBuilder usingParameterMap(Map<String, Object> params);
+
+    /**
+     * Provides a transitional state where multiple parameters can be applied before
+     * creating the Predicate
+     * 
+     */
+    public static interface ResourcePredicateBuilder extends ResourcePredicates {
+
+    }
 }

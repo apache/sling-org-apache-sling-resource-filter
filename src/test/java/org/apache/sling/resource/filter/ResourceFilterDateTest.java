@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.impl.ResourceFilterImpl;
+import org.apache.sling.resource.filter.impl.ResourcePredicateImpl;
 import org.apache.sling.resource.filter.impl.script.ParseException;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class ResourceFilterDateTest {
 
     private Resource resource;
     
-    ResourceFilter resourceFilter = new ResourceFilterImpl();
+    ResourcePredicates resourceFilter = new ResourcePredicateImpl();
 
     private static String START_PATH = "/content/sample/en";
 

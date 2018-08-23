@@ -26,7 +26,7 @@ public class DefaultContext implements Context {
 
     private Map<String, BiFunction<Object[], Resource, Object>> functions = new HashMap<>();
 
-    private Map<String, Object> arguments = new HashMap<>();
+    private Map<String, Object> parameters = new HashMap<>();
 
     private Visitor<Predicate<Resource>> logicVisitor;
 
@@ -46,7 +46,7 @@ public class DefaultContext implements Context {
 
     @Override
     public Context addArgument(String name, Object object) {
-        arguments.put(name, object);
+        parameters.put(name, object);
         return this;
     }
 
@@ -78,13 +78,19 @@ public class DefaultContext implements Context {
     }
 
     @Override
-    public Optional<Object> getArgument(String text) {
-        return Optional.ofNullable(arguments.get(text));
+    public Optional<Object> getParameter(String text) {
+        return Optional.ofNullable(parameters.get(text));
     }
 
     @Override
-    public void addParams(Map<String, Object> params) {
-        arguments.putAll(params);
+    public void addParameters(Map<String, Object> params) {
+        parameters.putAll(params);
+    }
+
+    @Override
+    public Context replaceParameterMap(Map<String, Object> params) {
+        parameters = params;
+        return this;
     }
 
 }

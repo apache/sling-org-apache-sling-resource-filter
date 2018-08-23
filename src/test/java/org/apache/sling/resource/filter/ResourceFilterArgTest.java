@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.impl.ResourceFilterImpl;
+import org.apache.sling.resource.filter.impl.ResourcePredicateImpl;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,14 +37,14 @@ public class ResourceFilterArgTest {
 
     Resource resource;
     
-    ResourceFilter resourceFilter = new ResourceFilterImpl();
+    ResourcePredicates resourceFilter = new ResourcePredicateImpl();
     
     @Before
     public void setUp() throws ParseException {
         context.load().json("/data.json", "/content/sample/en");
         resource = context.resourceResolver().getResource(START_PATH);
-        context.registerAdapter(Resource.class, ResourceFilterStream.class, new ResourceFilterStream(resource,new ResourceFilterImpl()));
-        context.registerAdapter(Resource.class, ResourceFilter.class, new ResourceFilterImpl());
+        context.registerAdapter(Resource.class, ResourceFilterStream.class, new ResourceFilterStream(resource,new ResourcePredicateImpl()));
+        context.registerAdapter(Resource.class, ResourcePredicates.class, new ResourcePredicateImpl());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ResourceFilterArgTest {
 
     @Test
     public void testNameFunctionAgainstRegex() throws ParseException, Exception {
-        Predicate<Resource> filter = resourceFilter.addParam("regex", "testpage[1-2]").parse("name() like $regex");
+        Predicate<Resource> filter = resourceFilter.withParameter("regex", "testpage[1-2]").parse("name() like $regex");
         List<Resource> found = handle(new ResourceStream(resource), filter);
         assertEquals(2, found.size());
     }

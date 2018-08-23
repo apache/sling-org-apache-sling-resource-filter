@@ -95,8 +95,17 @@ public interface Context {
      * @param name of the argument
      * @return Optional object represented by the name
      */
-    Optional<Object> getArgument(String name);
+    Optional<Object> getParameter(String name);
 
-    void addParams(Map<String, Object> params);
+    
+    void addParameters(Map<String, Object> params);
 
+    /**
+     * Allows an object to be represented in the script for evaluation.
+     * 
+     * @param name of the argument
+     * @param object value that is represented
+     * @return this Context
+     */
+    Context replaceParameterMap(Map<String, Object> params);
 }
