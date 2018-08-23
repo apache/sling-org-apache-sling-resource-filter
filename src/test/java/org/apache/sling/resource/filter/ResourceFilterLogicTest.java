@@ -44,7 +44,7 @@ public class ResourceFilterLogicTest {
     }
 
     @Test
-    public void testDateAndProperty() throws ResourceFilterException {
+    public void testDateAndProperty() {
         String query = "[jcr:content/created] > '2013-08-08T16:32:59' and [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
@@ -62,7 +62,7 @@ public class ResourceFilterLogicTest {
         assertEquals(4, found.size());
     }
 
-    private List<Resource> handle(String path, String filter) throws  ResourceFilterException {
+    private List<Resource> handle(String path, String filter)  {
         return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
                 .collect(Collectors.toList());
     }

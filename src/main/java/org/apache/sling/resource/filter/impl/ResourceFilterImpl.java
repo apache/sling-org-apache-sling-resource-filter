@@ -19,7 +19,6 @@ import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.ResourceFilter;
-import org.apache.sling.resource.filter.ResourceFilterException;
 import org.apache.sling.resource.filter.impl.node.Node;
 import org.apache.sling.resource.filter.impl.script.FilterParser;
 import org.apache.sling.resource.filter.impl.script.ParseException;
@@ -58,26 +57,26 @@ public class ResourceFilterImpl implements ResourceFilter {
     
     
     @Override
-    public Predicate<Resource> parse(String filter) throws ResourceFilterException {
+    public Predicate<Resource> parse(String filter) {
         Node rootNode;
         try {
             rootNode = new FilterParser(new ByteArrayInputStream(filter.getBytes())).parse();
             return rootNode.accept(getContext().getLogicVisitor());
         } catch (ParseException e) {
-            throw new ResourceFilterException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
 
 
     @Override
-    public Predicate<Resource> parse(String filter, String charEncoding) throws ResourceFilterException {
+    public Predicate<Resource> parse(String filter, String charEncoding) {
         Node rootNode;
         try {
             rootNode = new FilterParser(new ByteArrayInputStream(filter.getBytes()),charEncoding).parse();
             return rootNode.accept(getContext().getLogicVisitor());
         } catch (ParseException e) {
-            throw new ResourceFilterException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 

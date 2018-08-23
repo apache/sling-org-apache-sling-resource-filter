@@ -44,7 +44,7 @@ public class ResourceFilterDateTest {
     }
 
     @Test
-    public void testPropLessThanDateFunction() throws ResourceFilterException {
+    public void testPropLessThanDateFunction() {
         String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00')";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
@@ -98,7 +98,7 @@ public class ResourceFilterDateTest {
         assertEquals(4, found.size());
     }
 
-    private List<Resource> handle(String path, String filter) throws ResourceFilterException {
+    private List<Resource> handle(String path, String filter) {
         return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
                 .collect(Collectors.toList());
     }

@@ -32,82 +32,81 @@ public class ResourceFilterTest {
 
     private static String START_PATH = "/content/sample/en";
 
-
     private Resource resource;
     
     ResourceFilter resourceFilter = new ResourceFilterImpl();
 
     @Before
-    public void setUp() throws ResourceFilterException {
+    public void setUp() {
         context.load().json("/data.json", "/content/sample/en");
         resource = context.resourceResolver().getResource(START_PATH);
     }
 
     @Test
-    public void testPropertyEquals() throws ResourceFilterException {
+    public void testPropertyEquals() {
         String query = "[jcr:content/jcr:title] == 'English'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testPropertyIs() throws ResourceFilterException {
+    public void testPropertyIs() {
         String query = "[jcr:content/jcr:title] is 'English'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testDateBeforeValue() throws ResourceFilterException {
+    public void testDateBeforeValue() {
         String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00')";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
-    public void testDateBeforeValue2() throws ResourceFilterException {
+    public void testDateBeforeValue2() {
         String query = "[jcr:content/created] less than date('2013-08-08T16:32:59.000+02:00')";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
-    public void testDateBeforeValue3() throws ResourceFilterException {
+    public void testDateBeforeValue3() {
         String query = "[jcr:content/created] < date('2013-08-08','yyyy-MM-dd')";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
-    public void testDateAndProperty() throws ResourceFilterException {
+    public void testDateAndProperty() {
         String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
-    public void testDateAndPropertyTwice() throws ResourceFilterException {
+    public void testDateAndPropertyTwice() {
         String query = "([jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English') or [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testDateOrProperty() throws ResourceFilterException {
+    public void testDateOrProperty() {
         String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') or [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testDateAsString() throws ResourceFilterException {
+    public void testDateAsString() {
         String query = "[jcr:content/created] < '2013-08-08T16:32'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
-    public void testNullPropertyAndLimit() throws ResourceFilterException {
+    public void testNullPropertyAndLimit() {
         String query = "[jcr:content/foo] == null ";
         List<Resource> found = new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(query)).limit(3)
                 .collect(Collectors.toList());
@@ -115,145 +114,145 @@ public class ResourceFilterTest {
     }
 
     @Test
-    public void testNullProperty() throws ResourceFilterException {
+    public void testNullProperty() {
         String query = "[jcr:content/foo] == null ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(20, found.size());
     }
 
     @Test
-    public void testNumberLiteral() throws ResourceFilterException {
+    public void testNumberLiteral() {
         String query = "[count] < 2 ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testNumberLiteral2() throws ResourceFilterException {
+    public void testNumberLiteral2() {
         String query = "[count] < 2 or [count] > 1";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testNumberLiteral3() throws ResourceFilterException {
+    public void testNumberLiteral3() {
         String query = "[views] < 7 ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testNotNullProperty() throws ResourceFilterException {
+    public void testNotNullProperty() {
         String query = "[layout] != null ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(5, found.size());
     }
 
     @Test
-    public void testNotProperty() throws ResourceFilterException {
+    public void testNotProperty() {
         String query = "[layout] != 'foo' ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testNameFunctionIs() throws ResourceFilterException {
+    public void testNameFunctionIs() {
         String query = "name() == 'testpage1'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testNameFunctionAgainstRegex() throws ResourceFilterException {
+    public void testNameFunctionAgainstRegex() {
         String query = "name() like 'testpage.*'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testNameFunctionAgainstRegex2() throws ResourceFilterException {
+    public void testNameFunctionAgainstRegex2() {
         String query = "name() like 'testpage[1-2]'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(2, found.size());
     }
 
     @Test
-    public void testChildExistence() throws ResourceFilterException {
+    public void testChildExistence() {
         String query = "name() == 'testpage3' ";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testBoolean() throws ResourceFilterException {
+    public void testBoolean() {
         String query = "[published] == true";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testContains() throws ResourceFilterException {
+    public void testContains() {
         String query = "[jcr:content/monkey] contains 'fish'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testContainsNot() throws ResourceFilterException {
+    public void testContainsNot() {
         String query = "[jcr:content/monkey] contains not 'fish'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(19, found.size());
     }
 
     @Test
-    public void testIn() throws ResourceFilterException {
+    public void testIn() {
         String query = "'fish' in [jcr:content/monkey]";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testPathLike() throws ResourceFilterException {
+    public void testPathLike() {
         String query = "path() like '/content/sample/en/testpage1.*'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
-    public void testPathLike2() throws ResourceFilterException {
+    public void testPathLike2() {
         String query = "path() like '/content/sample/en/testpage1'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testPathLike3() throws ResourceFilterException {
+    public void testPathLike3() {
         String query = "path() is '/content/sample/en/testpage1'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(1, found.size());
     }
 
     @Test
-    public void testNotIn() throws ResourceFilterException {
+    public void testNotIn() {
         String query = "'fish' not in [jcr:content/monkey]";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(19, found.size());
     }
 
     @Test
-    public void testInNotException() throws ResourceFilterException {
-        ResourceFilterException error = null;
+    public void testInNotException() {
+        IllegalArgumentException error = null;
         try {
             String query = "'fish' in not [jcr:content/monkey]";
             handle(START_PATH, query);
-        } catch (ResourceFilterException e) {
+        } catch (IllegalArgumentException e) {
             error = e;
         }
         assert (error.getMessage()
                 .startsWith("org.apache.sling.resource.filter.impl.script.ParseException: Encountered \" <PROPERTY> \"jcr:content/monkey \"\" at line 1, column 15."));
     }
 
-    private List<Resource> handle(String path, String filter) throws ResourceFilterException {
+    private List<Resource> handle(String path, String filter) {
         return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
                 .collect(Collectors.toList());
     }

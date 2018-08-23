@@ -32,7 +32,7 @@ public interface ResourceFilter {
      * @return
      * @throws ResourceFilterException
      */
-    public Predicate<Resource> parse(String filter) throws ResourceFilterException;
+    public Predicate<Resource> parse(String filter);
 
     /**
      * Creates a Predicate<Resource> based on the script
@@ -42,7 +42,7 @@ public interface ResourceFilter {
      * @return
      * @throws ResourceFilterException
      */
-    public Predicate<Resource> parse(String filter, String charEncoding) throws ResourceFilterException;
+    public Predicate<Resource> parse(String filter, String charEncoding);
 
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the

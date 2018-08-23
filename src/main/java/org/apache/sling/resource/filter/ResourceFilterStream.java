@@ -49,7 +49,7 @@ public class ResourceFilterStream {
      * @return ResourceStreamFilter
      * @throws ResourceFilterException
      */
-    public ResourceFilterStream setBranchSelector(String branchSelector) throws ResourceFilterException {
+    public ResourceFilterStream setBranchSelector(String branchSelector) {
         this.branchSelector = resourceFilter.parse(branchSelector);
         return this;
     }
@@ -63,7 +63,7 @@ public class ResourceFilterStream {
      * @return ResourceStreamFilter
      * @throws ResourceFilterException
      */
-    public ResourceFilterStream setChildSelector(String childSelector) throws ResourceFilterException {
+    public ResourceFilterStream setChildSelector(String childSelector) {
         this.childSelector = resourceFilter.parse(childSelector);
         return this;
     }
