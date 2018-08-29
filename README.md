@@ -3,7 +3,7 @@
  [![Build Status](https://builds.apache.org/buildStatus/icon?job=sling-org-apache-sling-resource-filter-1.8)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8.svg)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8/test_results_analyzer/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # Resource Predicate Service
-`ResourcePredicate` is a service takes a simple matching language script that allows you to define a `Predicate<Resource>` for use with the Collections and the Streams api in Java, it also provides  the ability to add parameters to the underlying context that the script will pick up.
+`ResourcePredicate` is a service that allows you to convert a string that defines a simple matching requirements and returns a `Predicate<Resource>` for use with the Collections and the Streams Java API. In addition it also allows you to add parameters to the underlying context that the script will use.
 
 ```java
 @Reference
@@ -16,7 +16,9 @@ resourceCollection.stream().filter(predicate).forEach(
 ```
 
 ## Resource Stream
-`ResourceStream` is a general utility to provide a `Stream<Resource>` which traverses a resource and it's subtree. The implementation takes a `Predicate<Resource>` object as part of the stream creation to define a branch selector that controls which children of a resource are followed
+`ResourceStream` is a general utility to provide a `Stream<Resource>` which traverses a resource and it's subtree. The implementation takes a `Predicate<Resource>` object as part of the stream creation to define a branch selector that controls which children of a resource are followed.
+
+In addition there is a `getChildren(Predicate)` method which returns a filtered list of children of the given resource.
 
 
 ## Resource Filter Stream
