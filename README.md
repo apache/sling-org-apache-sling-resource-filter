@@ -3,11 +3,12 @@
  [![Build Status](https://builds.apache.org/buildStatus/icon?job=sling-org-apache-sling-resource-filter-1.8)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8) [![Test Status](https://img.shields.io/jenkins/t/https/builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8.svg)](https://builds.apache.org/view/S-Z/view/Sling/job/sling-org-apache-sling-resource-filter-1.8/test_results_analyzer/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # Resource Predicate Service
-`ResourcePredicate` is a service that allows you to convert a string that defines a simple matching requirements and returns a `Predicate<Resource>` for use with the Collections and the Streams Java API. In addition it also allows you to add parameters to the underlying context that the script will use.
+`ResourcePredicate` is a service that allows you to convert a string that defines a simple matching requirements into a `Predicate<Resource>` for use with the Collections and the Streams Java API. In addition it also allows you to add parameters to the underlying context that the script will use.
 
 ```java
 @Reference
 ResourcePredicates rp;
+
 Predicate<Resource> predicate = rp.parse("[jcr:content/created] < 2013-08-08T16:32");
 resourceCollection.stream().filter(predicate).forEach(
     resource -> System.out.println(resource.getPath())
