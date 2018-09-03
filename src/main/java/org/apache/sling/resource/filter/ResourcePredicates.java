@@ -22,12 +22,14 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import org.apache.sling.api.resource.Resource;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Service which provides the ability to convert a String into a
  * Predicate<Resource> to match against Resource Objects
  *
  */
+@ProviderType
 public interface ResourcePredicates {
 
     /**

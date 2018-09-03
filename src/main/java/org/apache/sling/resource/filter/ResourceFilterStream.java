@@ -20,12 +20,14 @@ import java.util.stream.Stream;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.filter.ResourceFilterStream;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Creates a {@link Predicate} of type {@link Resource} to identify matching
  * Resource objects
  *
  */
+@ProviderType
 public class ResourceFilterStream {
 
     private ResourceStream resources;

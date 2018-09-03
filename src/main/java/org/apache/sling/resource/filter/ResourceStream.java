@@ -24,12 +24,14 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.apache.sling.api.resource.Resource;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Utility to create a Stream<Resource> of Resource objects from a managed
  * traversal of a Resource tree
  *
  */
+@ProviderType
 public class ResourceStream {
 
     protected Resource resource;
