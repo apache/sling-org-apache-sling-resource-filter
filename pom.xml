@@ -15,7 +15,7 @@
     </parent>
 
     <artifactId>org.apache.sling.resource.filter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <name>Apache Sling Resource Filter</name>
@@ -80,6 +80,6 @@
         <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-resource-filter.git</url>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</developerConnection>
-        <tag>org.apache.sling.resource.filter-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 </project>
