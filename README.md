@@ -32,7 +32,7 @@ In addition there is a `getChildren(Predicate)` method which returns a filtered 
         .setBranchSelector("[jcr:primaryType] == 'cq:Page'")
         .setChildSelector("[jcr:content/sling:resourceType] != 'apps/components/page/folder'")
         .stream()
-        .collect(Collections.toList());
+        .collect(Collectors.toList());
 ```
 
 
