@@ -10,35 +10,33 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.sling</groupId>
-        <artifactId>sling</artifactId>
-        <version>32</version>
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>49</version>
     </parent>
 
     <artifactId>org.apache.sling.resource.filter</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <packaging>bundle</packaging>
 
     <name>Apache Sling Resource Filter</name>
+    <description>provides a set of utilities to create and handle streams</description>
 
     <properties>
         <sling.java.version>8</sling.java.version>
     </properties>
 
+    <scm>
+        <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-resource-filter.git</url>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>maven-sling-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javacc-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>javacc</id>
@@ -74,12 +72,22 @@
             <version>2.16.4</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- OSGi dependencies -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.annotation.versioning</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.metatype.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-    <description>provides a set of utilities to create and handle streams</description>
-    <scm>
-        <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-resource-filter.git</url>
-        <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</connection>
-        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
 </project>
