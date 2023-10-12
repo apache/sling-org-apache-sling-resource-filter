@@ -25,7 +25,7 @@
     </properties>
 
     <scm>
-        <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-resource-filter.git</url>
+        <url>https://github.com/apache/sling-org-apache-sling-resource-filter.git</url>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</developerConnection>
         <tag>HEAD</tag>
