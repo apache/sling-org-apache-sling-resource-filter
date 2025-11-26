@@ -6,7 +6,7 @@
 		"app:template": "/apps/sample/templates/homepage",
 		"sling:resourceType": "sample/components/homepage",
 		"jcr:createdBy": "admin",
-		"created": "Thu Aug 07 2011 16:32:59 GMT+0200",
+		"created": "2011-08-07T16:32:59.000+02:00",
 		"par": {
 			"jcr:primaryType": "nt:unstructured",
 			"sling:resourceType": "foundation/components/parsys",
@@ -25,7 +25,7 @@
 			"app:template": "/apps/sample/templates/homepage",
 			"sling:resourceType": "sample/components/homepage",
 			"jcr:createdBy": "admin",
-			"created": "Thu Aug 07 2012 16:32:59 GMT+0200",
+			"created": "2012-08-07T16:32:59.000+02:00",
 			"published": true,
 			"views" : 10,
 			"monkey": ["foo", "fish"],
@@ -48,7 +48,7 @@
 			"app:template": "/apps/sample/templates/homepage",
 			"sling:resourceType": "sample/components/homepage",
 			"jcr:createdBy": "admin",
-			"created": "Thu Aug 07 2013 16:32:59 GMT+0200",
+			"created": "2013-08-07T16:32:59.000+02:00",
 			"par": {
 				"jcr:primaryType": "nt:unstructured",
 				"sling:resourceType": "foundation/components/parsys",
@@ -68,7 +68,7 @@
 			"app:template": "/apps/sample/templates/homepage",
 			"sling:resourceType": "sample/components/homepage",
 			"jcr:createdBy": "admin",
-			"created": "Thu Aug 07 2014 16:32:59 GMT+0200",
+			"created": "2014-08-07T16:32:59.000+02:00",
 			"count" : 1.345666,
 			"par": {
 				"jcr:primaryType": "nt:unstructured",
@@ -90,7 +90,7 @@
 			"sling:resourceType": "sample/components/homepage",
 			"views" : 3,
 			"jcr:createdBy": "admin",
-			"created": "Thu Aug 07 2015 16:30:59 GMT+0200",
+			"created": "2015-08-07T16:30:59.000+02:00",
 			"par": {
 				"jcr:primaryType": "nt:unstructured",
 				"sling:resourceType": "foundation/components/parsys",
