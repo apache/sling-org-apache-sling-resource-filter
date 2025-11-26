@@ -1,15 +1,20 @@
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.resource.filter;
 
@@ -19,7 +24,6 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.resource.filter.ResourceFilterStream;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -37,8 +41,8 @@ public class ResourceFilterStream {
     private Predicate<Resource> branchSelector = resource -> true;
 
     private Predicate<Resource> childSelector = resource -> true;
-    
-    private Map<String,Object> parameters = new HashMap<>();
+
+    private Map<String, Object> parameters = new HashMap<>();
 
     public ResourceFilterStream(Resource resource, ResourcePredicates filter) {
         this.resources = new ResourceStream(resource);
@@ -48,7 +52,7 @@ public class ResourceFilterStream {
     /**
      * Adds a branchSelector to define which child resource are acceptable to travel
      * down as part of the Resource traversal
-     * 
+     *
      * @param branchSelector
      *            resourcePredicate script for traversal control
      * @return ResourceStreamFilter
@@ -62,7 +66,7 @@ public class ResourceFilterStream {
     /**
      * Adds a childSelector to define which child resources should be part of the
      * stream
-     * 
+     *
      * @param childSelector
      *            resourcePredicate script to identify child resources to return
      * @return ResourceStreamFilter
@@ -75,7 +79,7 @@ public class ResourceFilterStream {
 
     /**
      * Add a key - value pair that can then be evaluated as part of the Script
-     * 
+     *
      * @param params
      * @return
      */
@@ -87,7 +91,7 @@ public class ResourceFilterStream {
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
      * ScriptFilter
-     * 
+     *
      * @param params
      * @return
      */
@@ -99,7 +103,7 @@ public class ResourceFilterStream {
     /**
      * Stream<Resource> which uses the branchSelector as the basis of the traversal
      * and then filters the resources based on the childSelector that was provided
-     * 
+     *
      * @return pre filterd Stream<Resource>
      */
     public Stream<Resource> stream() {
