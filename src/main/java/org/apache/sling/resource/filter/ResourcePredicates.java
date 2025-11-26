@@ -34,7 +34,7 @@ public interface ResourcePredicates {
 
     /**
      * Creates a Predicate<Resource> based on the provided script
-     * 
+     *
      * @param filter
      * @return
      * @throws ResourceFilterException
@@ -43,7 +43,7 @@ public interface ResourcePredicates {
 
     /**
      * Creates a Predicate<Resource> based on the provided script
-     * 
+     *
      * @param filter
      * @param charEncoding
      * @return
@@ -54,7 +54,7 @@ public interface ResourcePredicates {
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
      * Predicate<Resource> creation
-     * 
+     *
      * @param params
      *            Map of Key - Value pairs
      * @return ResourcePredicateBuilder
@@ -64,7 +64,7 @@ public interface ResourcePredicates {
     /**
      * Adds a key - value pair that can then be evaluated as part of the
      * Predicate<Resource> creation
-     * 
+     *
      * @param key
      * @param value
      * @return ResourcePredicateBuilder
@@ -74,7 +74,7 @@ public interface ResourcePredicates {
     /**
      * Replaces the existing parameter map with the supplied Map<String,Object>
      * object, all prior provided parameters will be replaced
-     * 
+     *
      * @return ResourcePredicateBuilder
      */
     ResourcePredicateBuilder usingParameterMap(Map<String, Object> params);
@@ -82,9 +82,7 @@ public interface ResourcePredicates {
     /**
      * Provides a transitional state where multiple parameters can be applied before
      * creating the Predicate
-     * 
+     *
      */
-    public static interface ResourcePredicateBuilder extends ResourcePredicates {
-
-    }
+    public static interface ResourcePredicateBuilder extends ResourcePredicates {}
 }

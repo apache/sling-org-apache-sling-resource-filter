@@ -1,15 +1,20 @@
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.resource.filter.impl;
 
@@ -48,40 +53,42 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
     @Override
     public Function<Resource, Object> visit(Node node) {
         switch (node.kind) {
-        case FilterParserConstants.FUNCTION_NAME:
-            return functionHandler(node);
-        case FilterParserConstants.NULL:
-            return resource -> new Null();
-        case FilterParserConstants.NUMBER:
-            return resource -> numericHandler(node.text);
-        case FilterParserConstants.OFFSETDATETIME:
-            return resource -> OffsetDateTime.parse(node.text).toInstant();
-        case FilterParserConstants.DATETIME:
-            return resource -> LocalDateTime.parse(node.text).atOffset(ZoneOffset.UTC).toInstant();
-        case FilterParserConstants.DATE:
-            return resource -> LocalDate.parse(node.text).atStartOfDay(ZoneOffset.UTC).toInstant();
-        case FilterParserConstants.PROPERTY:
-            return resource -> {
-                Object value = valueMapOf(resource).get(node.text);
-                if (value instanceof Boolean) {
-                    return value.toString();
-                }
-                if (value instanceof Calendar) {
-                    return ((Calendar) value).toInstant();
-                }
-                return value;
-            };
-        case FilterParserConstants.DYNAMIC_ARG:
-            return resource -> {
-                String argument = node.text;
-                Optional<Object> arg = context.getParameter(argument);
-                if (!arg.isPresent()) {
-                    throw new NoSuchElementException(String.format("No value present for '%s'",argument));
-                }
-                return arg.get();
-            };
-        default:
-            return resource -> node.text;
+            case FilterParserConstants.FUNCTION_NAME:
+                return functionHandler(node);
+            case FilterParserConstants.NULL:
+                return resource -> new Null();
+            case FilterParserConstants.NUMBER:
+                return resource -> numericHandler(node.text);
+            case FilterParserConstants.OFFSETDATETIME:
+                return resource -> OffsetDateTime.parse(node.text).toInstant();
+            case FilterParserConstants.DATETIME:
+                return resource ->
+                        LocalDateTime.parse(node.text).atOffset(ZoneOffset.UTC).toInstant();
+            case FilterParserConstants.DATE:
+                return resource ->
+                        LocalDate.parse(node.text).atStartOfDay(ZoneOffset.UTC).toInstant();
+            case FilterParserConstants.PROPERTY:
+                return resource -> {
+                    Object value = valueMapOf(resource).get(node.text);
+                    if (value instanceof Boolean) {
+                        return value.toString();
+                    }
+                    if (value instanceof Calendar) {
+                        return ((Calendar) value).toInstant();
+                    }
+                    return value;
+                };
+            case FilterParserConstants.DYNAMIC_ARG:
+                return resource -> {
+                    String argument = node.text;
+                    Optional<Object> arg = context.getParameter(argument);
+                    if (!arg.isPresent()) {
+                        throw new NoSuchElementException(String.format("No value present for '%s'", argument));
+                    }
+                    return arg.get();
+                };
+            default:
+                return resource -> node.text;
         }
     }
 
@@ -107,36 +114,41 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
                 return null;
             }
         } else {
-            return DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString, OffsetDateTime::from).toInstant();
+            return DateTimeFormatter.ISO_OFFSET_DATE_TIME
+                    .parse(dateString, OffsetDateTime::from)
+                    .toInstant();
         }
     }
-    
-    private Function<Resource, Object> functionHandler(Node node){
+
+    private Function<Resource, Object> functionHandler(Node node) {
         // will only get here in the case of the 'FUNCTION' switch case
         switch (node.text) {
-        case "name":
-            return Resource::getName;
-        case "path":
-            return Resource::getPath;
-        case "date":
-            return resource -> {
-                Object[] arguments = node.visitChildren(this).stream().map(funct -> funct.apply(resource))
-                        .toArray();
-                return dateHandler(arguments);
-            };
-        default:
-            Optional<BiFunction<Object[], Resource, Object>> temp = context.getFunction(node.text);
-            if (temp.isPresent()) {
-                final List<Function<Resource, Object>> children2 = node.visitChildren(this);
+            case "name":
+                return Resource::getName;
+            case "path":
+                return Resource::getPath;
+            case "date":
                 return resource -> {
-                    Object[] arguments = children2.stream().map(funct -> funct.apply(resource)).toArray();
-                    return temp.get().apply(arguments, resource);
+                    Object[] arguments = node.visitChildren(this).stream()
+                            .map(funct -> funct.apply(resource))
+                            .toArray();
+                    return dateHandler(arguments);
                 };
-            }
+            default:
+                Optional<BiFunction<Object[], Resource, Object>> temp = context.getFunction(node.text);
+                if (temp.isPresent()) {
+                    final List<Function<Resource, Object>> children2 = node.visitChildren(this);
+                    return resource -> {
+                        Object[] arguments = children2.stream()
+                                .map(funct -> funct.apply(resource))
+                                .toArray();
+                        return temp.get().apply(arguments, resource);
+                    };
+                }
         }
         return null;
     }
-    
+
     private static Number numericHandler(String numberText) {
         Number numericValue = null;
         try {
@@ -150,5 +162,4 @@ public class ComparisonVisitor implements Visitor<Function<Resource, Object>> {
         }
         return numericValue;
     }
-
 }

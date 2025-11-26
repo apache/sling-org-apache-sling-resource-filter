@@ -1,15 +1,20 @@
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.resource.filter.impl;
 
@@ -24,10 +29,10 @@ import org.apache.sling.resource.filter.impl.script.FilterParserConstants;
 /**
  * Visitor implementation that handles the high level handling of logic between
  * statements that define the comparisons that would be performed.
- * 
+ *
  * In practical terms this handles the "and" and "or" predicates, if it
  * encounters a COMPARISON node, it then hands off the internal ValueVisitor
- * 
+ *
  */
 public class LogicVisitor implements Visitor<Predicate<Resource>> {
 
@@ -41,12 +46,12 @@ public class LogicVisitor implements Visitor<Predicate<Resource>> {
     @Override
     public Predicate<Resource> visit(Node node) {
         switch (node.kind) {
-        case FilterParserConstants.AND:
-            return createAndPredicate(node);
-        case FilterParserConstants.OR:
-            return createOrPredicate(node);
-        default:
-            return createComparisonPredicate(node);
+            case FilterParserConstants.AND:
+                return createAndPredicate(node);
+            case FilterParserConstants.OR:
+                return createOrPredicate(node);
+            default:
+                return createComparisonPredicate(node);
         }
     }
 
@@ -61,7 +66,7 @@ public class LogicVisitor implements Visitor<Predicate<Resource>> {
 
     /**
      * Returns a predicate which consists of a series of Or statements
-     * 
+     *
      * @param node
      * @param param
      * @return
@@ -80,5 +85,4 @@ public class LogicVisitor implements Visitor<Predicate<Resource>> {
         Function<Resource, Object> rightValue = comparisonNode.rightNode.accept(context.getComparisonVisitor());
         return ComparisonPredicateFactory.toPredicate(comparisonNode.kind, leftValue, rightValue);
     }
-
 }

@@ -25,10 +25,13 @@ import org.apache.sling.resource.filter.ResourcePredicates;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-
-@Component(property= {"adaptables=org.apache.sling.api.resource.Resource","adapters=org.apache.sling.resource.filter.ResourceFilterStream"})
+@Component(
+        property = {
+            "adaptables=org.apache.sling.api.resource.Resource",
+            "adapters=org.apache.sling.resource.filter.ResourceFilterStream"
+        })
 public class ResourceFilterAdapter implements AdapterFactory {
-    
+
     @Reference
     private volatile ResourcePredicates filter;
 
@@ -36,9 +39,8 @@ public class ResourceFilterAdapter implements AdapterFactory {
     @Override
     public <T> T getAdapter(Object adaptable, Class<T> type) {
         if (adaptable instanceof Resource) {
-            return (T) new ResourceFilterStream((Resource)adaptable, filter);
+            return (T) new ResourceFilterStream((Resource) adaptable, filter);
         }
         return null;
     }
-
 }

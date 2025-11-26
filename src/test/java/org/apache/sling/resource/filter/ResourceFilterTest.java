@@ -1,19 +1,22 @@
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.resource.filter;
-
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class ResourceFilterTest {
 
     @Rule
@@ -33,7 +38,7 @@ public class ResourceFilterTest {
     private static String START_PATH = "/content/sample/en";
 
     private Resource resource;
-    
+
     ResourcePredicates resourceFilter = new ResourcePredicateImpl();
 
     @Before
@@ -79,21 +84,24 @@ public class ResourceFilterTest {
 
     @Test
     public void testDateAndProperty() {
-        String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English'";
+        String query =
+                "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(3, found.size());
     }
 
     @Test
     public void testDateAndPropertyTwice() {
-        String query = "([jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English') or [jcr:content/jcr:title] == 'Mongolian'";
+        String query =
+                "([jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') and [jcr:content/jcr:title] == 'English') or [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
 
     @Test
     public void testDateOrProperty() {
-        String query = "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') or [jcr:content/jcr:title] == 'Mongolian'";
+        String query =
+                "[jcr:content/created] < date('2013-08-08T16:32:59.000+02:00') or [jcr:content/jcr:title] == 'Mongolian'";
         List<Resource> found = handle(START_PATH, query);
         assertEquals(4, found.size());
     }
@@ -108,8 +116,8 @@ public class ResourceFilterTest {
     @Test
     public void testNullPropertyAndLimit() {
         String query = "[jcr:content/foo] == null ";
-        List<Resource> found = new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(query)).limit(3)
-                .collect(Collectors.toList());
+        List<Resource> found = new ResourceStream(resource)
+                .stream(r -> true).filter(resourceFilter.parse(query)).limit(3).collect(Collectors.toList());
         assertEquals(3, found.size());
     }
 
@@ -249,11 +257,12 @@ public class ResourceFilterTest {
             error = e;
         }
         assert (error.getMessage()
-                .startsWith("org.apache.sling.resource.filter.impl.script.ParseException: Encountered \" <PROPERTY> \"jcr:content/monkey \"\" at line 1, column 15."));
+                .startsWith(
+                        "org.apache.sling.resource.filter.impl.script.ParseException: Encountered \" <PROPERTY> \"jcr:content/monkey \"\" at line 1, column 15."));
     }
 
     private List<Resource> handle(String path, String filter) {
-        return new ResourceStream(resource).stream(r -> true).filter(resourceFilter.parse(filter))
-                .collect(Collectors.toList());
+        return new ResourceStream(resource)
+                .stream(r -> true).filter(resourceFilter.parse(filter)).collect(Collectors.toList());
     }
 }

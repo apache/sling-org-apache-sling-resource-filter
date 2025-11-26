@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--Licensed under the Apache License, Version 2.0 (the "License"); you may 
     not use this file except in compliance with the License. You may obtain a 
     copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless 
@@ -21,39 +21,16 @@
     <name>Apache Sling Resource Filter</name>
     <description>provides a set of utilities to create and handle streams</description>
 
-    <properties>
-        <sling.java.version>11</sling.java.version>
-    </properties>
-
     <scm>
-        <url>https://github.com/apache/sling-org-apache-sling-resource-filter.git</url>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-resource-filter.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/apache/sling-org-apache-sling-resource-filter.git</url>
     </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javacc-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>javacc</id>
-                        <goals>
-                            <goal>javacc</goal>
-                        </goals>
-                        <configuration>
-                            <jdkVersion>1.8</jdkVersion>
-                            <javadocFriendlyComments>true</javadocFriendlyComments>
-                            <outputDirectory>${basedir}/src/main/java</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <properties>
+        <sling.java.version>11</sling.java.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -67,7 +44,7 @@
             <version>2.16.4</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- OSGi dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -97,4 +74,27 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javacc-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>javacc</id>
+                        <goals>
+                            <goal>javacc</goal>
+                        </goals>
+                        <configuration>
+                            <jdkVersion>1.8</jdkVersion>
+                            <javadocFriendlyComments>true</javadocFriendlyComments>
+                            <outputDirectory>${basedir}/src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

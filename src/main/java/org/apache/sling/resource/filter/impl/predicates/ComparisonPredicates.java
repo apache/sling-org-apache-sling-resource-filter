@@ -1,15 +1,20 @@
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.sling.resource.filter.impl.predicates;
 
@@ -37,7 +42,7 @@ public class ComparisonPredicates {
 
     /**
      * Values are converted to Strings.
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -54,12 +59,11 @@ public class ComparisonPredicates {
             }
             return lhValue.equals(rhValue);
         };
-
     }
 
     /**
      * Values are converted to Strings.
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -76,13 +80,12 @@ public class ComparisonPredicates {
             }
             return !lhValue.equals(rhValue);
         };
-
     }
 
     /**
      * Values are converted to Strings. Right hand value is treated as a Regular
      * expression.
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -99,13 +102,12 @@ public class ComparisonPredicates {
             }
             return Pattern.matches(rhValue.toString(), lhValue);
         };
-
     }
 
     /**
      * Values are converted to a Number, and then additionally converted to a common
      * type as the basis of comparison
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -128,13 +130,12 @@ public class ComparisonPredicates {
             }
             return false;
         };
-
     }
 
     /**
      * Values are converted to a Number, and then additionally converted to a common
      * type as the basis of comparison
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -162,7 +163,7 @@ public class ComparisonPredicates {
     /**
      * Values are converted to a Number, and then additionally converted to a common
      * type as the basis of comparison
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -185,13 +186,12 @@ public class ComparisonPredicates {
             }
             return false;
         };
-
     }
 
     /**
      * Values are converted to a Number, and then additionally converted to a common
      * type as the basis of comparison
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -218,7 +218,7 @@ public class ComparisonPredicates {
 
     /**
      * Right and Left values are converted to String arrays
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -237,7 +237,8 @@ public class ComparisonPredicates {
                 return false;
             }
             for (String rhValue : rhValues) {
-                innerLoop: {
+                innerLoop:
+                {
                     for (String lhValue : lhValues) {
                         if (lhValue.equals(rhValue)) {
                             break innerLoop;
@@ -254,7 +255,7 @@ public class ComparisonPredicates {
 
     /**
      * Right and Left values are converted to String arrays
-     * 
+     *
      * @param lhs
      *            Function which provides comparison value
      * @param rhs
@@ -281,7 +282,7 @@ public class ComparisonPredicates {
 
     /**
      * Right and Left values are converted to String arrays
-     * 
+     *
      * @param lhs
      *            Function which provides value for comparison
      * @param rhs
@@ -298,7 +299,8 @@ public class ComparisonPredicates {
                 return false;
             }
             for (String lhValue : lhValues) {
-                innerLoop: {
+                innerLoop:
+                {
                     for (String rhValue : rhValues) {
                         if (rhValue.equals(lhValue)) {
                             break innerLoop;
@@ -352,7 +354,6 @@ public class ComparisonPredicates {
         } else {
             return initialValue.toString();
         }
-
     }
 
     private static Number getNumber(final Object initialValue) {
@@ -375,7 +376,8 @@ public class ComparisonPredicates {
                     return new BigDecimal(value);
                 } catch (NumberFormatException nfe2) {
                     try {
-                        return LocalDateTime.parse(value, DateTimeFormatter.ISO_DATE_TIME).toInstant(ZoneOffset.UTC)
+                        return LocalDateTime.parse(value, DateTimeFormatter.ISO_DATE_TIME)
+                                .toInstant(ZoneOffset.UTC)
                                 .toEpochMilli();
                     } catch (DateTimeParseException dtpe) {
                         // swallow
@@ -385,5 +387,4 @@ public class ComparisonPredicates {
             }
         }
     }
-
 }
