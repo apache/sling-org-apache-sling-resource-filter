@@ -56,7 +56,6 @@ public class ResourceFilterStream {
      * @param branchSelector
      *            resourcePredicate script for traversal control
      * @return ResourceStreamFilter
-     * @throws ResourceFilterException
      */
     public ResourceFilterStream setBranchSelector(String branchSelector) {
         this.branchSelector = resourcePredicate.usingParameterMap(parameters).parse(branchSelector);
@@ -70,7 +69,6 @@ public class ResourceFilterStream {
      * @param childSelector
      *            resourcePredicate script to identify child resources to return
      * @return ResourceStreamFilter
-     * @throws ResourceFilterException
      */
     public ResourceFilterStream setChildSelector(String childSelector) {
         this.childSelector = resourcePredicate.usingParameterMap(parameters).parse(childSelector);
@@ -79,9 +77,6 @@ public class ResourceFilterStream {
 
     /**
      * Add a key - value pair that can then be evaluated as part of the Script
-     *
-     * @param params
-     * @return
      */
     public ResourceFilterStream addParam(String key, Object value) {
         parameters.put(key, value);
@@ -91,9 +86,6 @@ public class ResourceFilterStream {
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
      * ScriptFilter
-     *
-     * @param params
-     * @return
      */
     public ResourceFilterStream addParams(Map<String, Object> params) {
         parameters.putAll(params);
@@ -101,10 +93,10 @@ public class ResourceFilterStream {
     }
 
     /**
-     * Stream<Resource> which uses the branchSelector as the basis of the traversal
+     * Stream&lt;Resource&gt; which uses the branchSelector as the basis of the traversal
      * and then filters the resources based on the childSelector that was provided
      *
-     * @return pre filterd Stream<Resource>
+     * @return pre filterd Stream&lt;Resource&gt;
      */
     public Stream<Resource> stream() {
         return resources.stream(branchSelector).filter(childSelector);
