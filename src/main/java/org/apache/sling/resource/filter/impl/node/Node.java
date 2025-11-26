@@ -37,8 +37,6 @@ public class Node {
 
     /**
      * creates a node which represents a literal
-     *
-     * @param value
      */
     public Node(int kind, String text) {
         this.kind = kind;
@@ -47,8 +45,6 @@ public class Node {
 
     /**
      * creates a logical node
-     *
-     * @param value
      */
     public Node(int kind, List<Node> children) {
         this.kind = kind;
@@ -57,8 +53,6 @@ public class Node {
 
     /**
      * Node with children
-     *
-     * @param value
      */
     public Node(int kind, String text, List<Node> children) {
         this.kind = kind;

@@ -32,7 +32,7 @@ import org.apache.sling.api.resource.Resource;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * Utility to create a Stream<Resource> of Resource objects from a managed
+ * Utility to create a Stream&lt;Resource&gt; of Resource objects from a managed
  * traversal of a Resource tree
  *
  */

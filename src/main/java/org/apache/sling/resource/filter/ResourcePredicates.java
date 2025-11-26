@@ -26,34 +26,32 @@ import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * Service which provides the ability to convert a String into a
- * Predicate<Resource> to match against Resource Objects
+ * Predicate&lt;Resource&gt; to match against Resource Objects
  *
  */
 @ProviderType
 public interface ResourcePredicates {
 
     /**
-     * Creates a Predicate<Resource> based on the provided script
+     * Creates a Predicate&lt;Resource&gt; based on the provided script
      *
      * @param filter
      * @return
-     * @throws ResourceFilterException
      */
     Predicate<Resource> parse(String filter);
 
     /**
-     * Creates a Predicate<Resource> based on the provided script
+     * Creates a Predicate&lt;Resource&gt; based on the provided script
      *
      * @param filter
      * @param charEncoding
      * @return
-     * @throws ResourceFilterException
      */
     Predicate<Resource> parse(String filter, String charEncoding);
 
     /**
      * Add a series of key - value pairs that can then be evaluated as part of the
-     * Predicate<Resource> creation
+     * Predicate&lt;Resource&gt; creation
      *
      * @param params
      *            Map of Key - Value pairs
@@ -63,7 +61,7 @@ public interface ResourcePredicates {
 
     /**
      * Adds a key - value pair that can then be evaluated as part of the
-     * Predicate<Resource> creation
+     * Predicate&lt;Resource&gt; creation
      *
      * @param key
      * @param value
@@ -72,7 +70,7 @@ public interface ResourcePredicates {
     ResourcePredicateBuilder withParameter(String key, Object value);
 
     /**
-     * Replaces the existing parameter map with the supplied Map<String,Object>
+     * Replaces the existing parameter map with the supplied Map&lt;String,Object&gt;
      * object, all prior provided parameters will be replaced
      *
      * @return ResourcePredicateBuilder
